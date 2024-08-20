@@ -1,5 +1,5 @@
 <script lang="ts">
-	import TwoPlayerLayout from '$lib/components/layouts/TwoPlayerLayout.svelte';
+	import TwoPlayerLayout from '$lib/layouts/TwoPlayerLayout.svelte';
 
 	const players: App.Player.Data[] = [
 		{

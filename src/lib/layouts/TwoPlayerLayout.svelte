@@ -1,6 +1,6 @@
 <script lang="ts">
-	import MenuBar from '../menuBar/MenuBar.svelte';
-	import Player from '../player/Player.svelte';
+	import MenuBar from '../components/menuBar/MenuBar.svelte';
+	import Player from '../components/player/Player.svelte';
 
 	export let players: App.Player.Data[];
 </script>

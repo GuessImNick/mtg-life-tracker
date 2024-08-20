@@ -1,8 +1,8 @@
 <script>
 	import Reset from '$lib/assets/icons/Reset.svelte';
-	import Randomizer from './components/randomizer/Randomizer.svelte';
-	import Resources from './components/resources/Resources.svelte';
-	import Settings from './components/settings/Settings.svelte';
+	import Randomizer from './subcomponents/randomizer/Randomizer.svelte';
+	import Resources from './subcomponents/resources/Resources.svelte';
+	import Settings from './subcomponents/settings/Settings.svelte';
 </script>
 
 <div class="h-14 flex justify-around py-1.5 items-center">

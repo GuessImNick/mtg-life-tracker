@@ -1,5 +1,5 @@
 <script>
-	import { getPlayerCount } from '$lib/store/appStore';
+	import { getPlayerCount } from '$lib/store/app';
 
 	let playerCount = getPlayerCount();
 </script>
