@@ -1,2 +1,34 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script lang="ts">
+	import TwoPlayerLayout from '$lib/components/layouts/TwoPlayerLayout.svelte';
+
+	const players: App.Player.Data[] = [
+		{
+			lifeTotal: 40,
+			playerName: 'Player 1'
+		},
+		{
+			lifeTotal: 40,
+			playerName: 'Player 2'
+		},
+		{
+			lifeTotal: 40,
+			playerName: 'Player 3'
+		},
+		{
+			lifeTotal: 40,
+			playerName: 'Player 4'
+		},
+		{
+			lifeTotal: 40,
+			playerName: 'Player 5'
+		},
+		{
+			lifeTotal: 40,
+			playerName: 'Player 6'
+		}
+	];
+</script>
+
+<div class="w-full max-w-[24rem] min-h-screen bg-black">
+	<TwoPlayerLayout {players} />
+</div>

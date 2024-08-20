@@ -2,11 +2,15 @@
 // for information about these interfaces
 declare global {
 	namespace App {
-		// interface Error {}
-		// interface Locals {}
-		// interface PageData {}
-		// interface PageState {}
-		// interface Platform {}
+		namespace Player {
+			type LifeMoveType = 'subtract' | 'add';
+			type Orientation = 'up' | 'down' | 'left' | 'right';
+
+			type Data = {
+				lifeTotal: number;
+				playerName: string;
+			};
+		}
 	}
 }
 
