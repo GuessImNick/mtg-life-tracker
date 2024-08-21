@@ -12,7 +12,7 @@ export const setPlayerCount = (playerCount: number) => {
 
 export const setStartingLifeTotal = (startingLifeTotal: number) => {
 	appSettings.update((data) => ({ ...data, startingLifeTotal }));
-	console.log(get(appSettings))
+	toggleIsMenuOpen('');
 };
 
 export const appState = writable({

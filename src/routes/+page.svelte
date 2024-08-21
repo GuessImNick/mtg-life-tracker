@@ -1,10 +1,12 @@
 <script lang="ts">
 	import TwoPlayerLayout from '$lib/layouts/TwoPlayerLayout.svelte';
 	import ThreePlayerLayout from '$lib/layouts/ThreePlayerLayout.svelte';
-	import { appSettings } from '$lib/store/app';
+	import { appSettings, appState } from '$lib/store/app';
 	import FourPlayerLayoutOne from '$lib/layouts/FourPlayerLayoutOne.svelte';
 	import FivePlayerLayout from '$lib/layouts/FivePlayerLayout.svelte';
 	import SixPlayerLayoutOne from '$lib/layouts/SixPlayerLayoutOne.svelte';
+
+	$: console.log($appState.isMenuOpen)
 
 </script>
 

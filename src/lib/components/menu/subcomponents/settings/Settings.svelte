@@ -24,7 +24,6 @@
 		const confirm = window.confirm('Are you sure you want to continue?');
 		if (confirm) {
 			setStartingLifeTotal(startingLifeTotal);
-			toggleIsMenuOpen('');
 			resetLifeTotals();
 		}
 	};
@@ -34,7 +33,6 @@
 		const confirm = window.confirm('Are you sure you want to continue?');
 		if (confirm) {
 			setPlayerCount(playerCount);
-			toggleIsMenuOpen('');
 			resetLifeTotals();
 		}
 	};
