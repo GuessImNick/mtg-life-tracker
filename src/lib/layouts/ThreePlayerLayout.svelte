@@ -13,13 +13,13 @@
 	};
 </script>
 
-<div class="flex flex-col h-full">
-	<div class="h-2/3 flex flex-row justify-betweenflex-grow">
+<div class="flex flex-col h-full justify-between">
+	<div class="flex flex-row justify-between {isMenuOpen ? '' : 'h-2/3'}">
 		<Player orientation="right" playerData={players[1]} {isMenuOpen} />
 		<Player orientation="left" playerData={players[2]} {isMenuOpen} />
 	</div>
 	<Menu on:resetLifeTotals on:toggleMenuOpen={toggleMenuOpen} {activeMenu} {isMenuOpen} />
-	<div class="flex-grow h-1/3">
-		<Player playerData={players[0]} {isMenuOpen} />
+	<div class="flex-grow">
+		<Player orientation={'up'} playerData={players[0]} {isMenuOpen} />
 	</div>
 </div>

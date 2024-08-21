@@ -21,8 +21,7 @@
 </script>
 
 <div
-	class="flex justify-around py-1.5 items-center transition-all duration-[0.25s]"
-	class:h-14={!isMenuOpen}
+	class="flex justify-around py-1.5 items-center transition-all h-14 mb-full"
 	class:h-full={isMenuOpen}
 >
 	{#if !isMenuOpen}
