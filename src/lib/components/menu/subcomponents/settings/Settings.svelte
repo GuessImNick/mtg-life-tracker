@@ -37,7 +37,6 @@
 
 		if (key === 'Enter') {
 			setLifeTotal($appSettings.customStartingLifeTotal);
-			if (!isCustomStartingLife()) setCustomStartingLifeTotal(60);
 		}
 	};
 
@@ -46,6 +45,9 @@
 		const confirm = window.confirm('Are you sure you want to continue?');
 		if (confirm) {
 			setStartingLifeTotal(startingLifeTotal);
+			if (!isCustomStartingLife()) {
+				setCustomStartingLifeTotal(60);
+			}
 			toggleIsMenuOpen('');
 			resetLifeTotals();
 		}
