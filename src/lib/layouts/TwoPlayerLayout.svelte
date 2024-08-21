@@ -14,7 +14,13 @@
 </script>
 
 <div class="flex flex-col h-full">
-	<Player orientation="down" playerData={players[1]} {isMenuOpen} />
-	<Menu on:resetLifeTotals on:toggleMenuOpen={toggleMenuOpen} {activeMenu} {isMenuOpen}/>
-	<Player playerData={players[0]} {isMenuOpen} />
+	<div class="h-6 flex items-start" class:h-full={!isMenuOpen}>
+		<Player orientation="down" playerData={players[1]} {isMenuOpen} />
+	</div>
+	<div class="flex-grow">
+		<Menu on:resetLifeTotals on:toggleMenuOpen={toggleMenuOpen} {activeMenu} {isMenuOpen} />
+	</div>
+	<div class="h-6 flex items-end" class:h-full={!isMenuOpen}>
+		<Player playerData={players[0]} {isMenuOpen} />
+	</div>
 </div>

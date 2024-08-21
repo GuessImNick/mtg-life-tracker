@@ -2,6 +2,9 @@
 	import TwoPlayerLayout from '$lib/layouts/TwoPlayerLayout.svelte';
 	import ThreePlayerLayout from '$lib/layouts/ThreePlayerLayout.svelte';
 	import { appData } from '$lib/store/app';
+	import FourPlayerLayoutOne from '$lib/layouts/FourPlayerLayoutOne.svelte';
+	import FivePlayerLayout from '$lib/layouts/FivePlayerLayout.svelte';
+	import SixPlayerLayoutOne from '$lib/layouts/SixPlayerLayoutOne.svelte';
 
 	let players: App.Player.Data[] = [
 		{
@@ -52,5 +55,11 @@
 		<TwoPlayerLayout {players} on:resetLifeTotals={resetLifeTotals} />
 	{:else if $appData.playerCount === 3}
 		<ThreePlayerLayout {players} on:resetLifeTotals={resetLifeTotals} />
+	{:else if $appData.playerCount === 4}
+		<FourPlayerLayoutOne {players} on:resetLifeTotals={resetLifeTotals} />
+	{:else if $appData.playerCount === 5}
+		<FivePlayerLayout {players} on:resetLifeTotals={resetLifeTotals} />
+	{:else if $appData.playerCount === 6}
+		<SixPlayerLayoutOne {players} on:resetLifeTotals={resetLifeTotals} />
 	{/if}
 </div>

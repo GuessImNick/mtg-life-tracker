@@ -1,5 +1,6 @@
 <script>
 	import Reset from '$lib/assets/icons/Reset.svelte';
+	import { appData } from '$lib/store/app';
 	import Randomizer from './subcomponents/randomizer/Randomizer.svelte';
 	import Resources from './subcomponents/resources/Resources.svelte';
 	import Settings from './subcomponents/settings/Settings.svelte';
@@ -17,12 +18,12 @@
 			dispatch('resetLifeTotals');
 		}
 	};
-
 </script>
 
 <div
-	class="flex justify-around py-1.5 items-center transition-all h-14 mb-full"
+	class="flex justify-around py-1.5 items-center h-14 mb-full"
 	class:h-full={isMenuOpen}
+	class:mt-6={isMenuOpen && $appData.playerCount > 4}
 >
 	{#if !isMenuOpen}
 		<div class="flex justify-center items-center flex-grow h-full">

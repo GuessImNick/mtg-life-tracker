@@ -67,12 +67,7 @@
 </script>
 
 {#if orientation === 'left' || orientation === 'right'}
-	<div
-		class="bg-player flex w-full transition-all duration-[0.30s] rounded-3xl relative flex-grow h-6"
-		class:h-full={!isMenuOpen}
-		class:ml-1={orientation === 'left'}
-		class:mr-1={orientation === 'right'}
-	>
+	<div class="bg-player flex w-full rounded-3xl relative flex-grow h-6" class:h-full={!isMenuOpen}>
 		{#if !isMenuOpen}
 			<div class="flex flex-col w-full relative">
 				<button
@@ -112,8 +107,8 @@
 	</div>
 {:else if orientation === 'up' || orientation === 'down'}
 	<div
-		class="bg-player flex w-full transition-all duration-[0.30s] rounded-3xl relative flex-grow h-6"
-		class:h-80={!isMenuOpen}
+		class="bg-player flex w-full rounded-3xl relative flex-grow h-6"
+		class:h-full={!isMenuOpen}
 		class:rotate-180={orientation === 'down'}
 	>
 		{#if !isMenuOpen}

@@ -1,8 +1,8 @@
 import { get, writable } from 'svelte/store';
 
 export const appData = writable({
-	playerCount: 2,
-	startingLifeTotal: 20
+	playerCount: 4,
+	startingLifeTotal: 40
 });
 
 export const setPlayerCount = (playerCount: number) => {

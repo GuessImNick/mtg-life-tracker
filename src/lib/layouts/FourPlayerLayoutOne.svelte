@@ -14,7 +14,7 @@
 </script>
 
 <div class="flex flex-col h-full justify-between">
-	<div class="h-6 w-full flex justify-between gap-2" class:h-[60%]={!isMenuOpen}>
+	<div class="h-6 w-full flex justify-between gap-2" class:h-full={!isMenuOpen}>
 		<div class="w-1/2">
 			<Player orientation="right" playerData={players[1]} {isMenuOpen} />
 		</div>
@@ -25,7 +25,12 @@
 	<div class="flex-grow">
 		<Menu on:resetLifeTotals on:toggleMenuOpen={toggleMenuOpen} {activeMenu} {isMenuOpen} />
 	</div>
-	<div class="h-6 flex items-end" class:h-[40%]={!isMenuOpen}>
-		<Player orientation={'up'} playerData={players[0]} {isMenuOpen} />
+	<div class="h-6 w-full flex justify-between gap-2" class:h-full={!isMenuOpen}>
+		<div class="w-1/2">
+			<Player orientation="right" playerData={players[0]} {isMenuOpen} />
+		</div>
+		<div class="w-1/2">
+			<Player orientation="left" playerData={players[3]} {isMenuOpen} />
+		</div>
 	</div>
 </div>
