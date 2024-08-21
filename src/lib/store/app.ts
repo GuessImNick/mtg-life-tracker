@@ -1,15 +1,23 @@
-import { get, writable } from 'svelte/store';
+import { writable } from 'svelte/store';
 
-export const appData = writable({
+export const appSettings = writable({
 	playerCount: 4,
 	startingLifeTotal: 40
 });
 
 export const setPlayerCount = (playerCount: number) => {
-	appData.update((data) => ({ ...data, playerCount }));
+	appSettings.update((data) => ({ ...data, playerCount }));
 };
 
 export const setStartingLifeTotal = (startingLifeTotal: number) => {
-	appData.update((data) => ({ ...data, startingLifeTotal }));
-	console.log(get(appData));
+	appSettings.update((data) => ({ ...data, startingLifeTotal }));
+};
+
+export const appState = writable({
+	isMenuOpen: false,
+	activeMenu: ''
+});
+
+export const toggleIsMenuOpen = (menu: App.AppState.Menu = '') => {
+	appState.update((data) => ({ activeMenu: menu, isMenuOpen: !data.isMenuOpen }));
 };

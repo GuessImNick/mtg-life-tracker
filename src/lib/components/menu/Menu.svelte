@@ -1,13 +1,10 @@
 <script>
 	import Reset from '$lib/assets/icons/Reset.svelte';
-	import { appData } from '$lib/store/app';
+	import { appSettings, appState } from '$lib/store/app';
 	import Randomizer from './subcomponents/randomizer/Randomizer.svelte';
 	import Resources from './subcomponents/resources/Resources.svelte';
 	import Settings from './subcomponents/settings/Settings.svelte';
 	import { createEventDispatcher } from 'svelte';
-
-	export let isMenuOpen = false;
-	export let activeMenu = '';
 
 	const dispatch = createEventDispatcher();
 
@@ -22,29 +19,29 @@
 
 <div
 	class="flex justify-around py-1.5 items-center h-14 mb-full"
-	class:h-full={isMenuOpen}
-	class:mt-6={isMenuOpen && $appData.playerCount > 4}
+	class:h-full={$appState.isMenuOpen}
+	class:mt-6={$appState.isMenuOpen && $appSettings.playerCount > 4}
 >
-	{#if !isMenuOpen}
+	{#if !$appState.isMenuOpen}
 		<div class="flex justify-center items-center flex-grow h-full">
 			<button on:click={onResetLifeTotals} class="h-10 w-10"><Reset /></button>
 		</div>
 	{/if}
-	{#if !isMenuOpen || activeMenu === 'settings'}
+	{#if !$appState.isMenuOpen || $appState.activeMenu === 'settings'}
 		<div class="flex justify-center items-center flex-grow h-full">
-			<Settings on:resetLifeTotals on:toggleMenuOpen {isMenuOpen} />
+			<Settings on:resetLifeTotals />
 		</div>
 	{/if}
 
-	{#if !isMenuOpen || activeMenu === 'resources'}
+	{#if !$appState.isMenuOpen || $appState.activeMenu === 'resources'}
 		<div class="flex justify-center items-center flex-grow h-full">
-			<Resources on:toggleMenuOpen {isMenuOpen} />
+			<Resources />
 		</div>
 	{/if}
 
-	{#if !isMenuOpen || activeMenu === 'randomizer'}
+	{#if !$appState.isMenuOpen || $appState.activeMenu === 'randomizer'}
 		<div class="flex justify-center items-center flex-grow h-full">
-			<Randomizer on:toggleMenuOpen {isMenuOpen} />
+			<Randomizer />
 		</div>
 	{/if}
 </div>

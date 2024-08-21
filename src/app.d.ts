@@ -2,6 +2,9 @@
 // for information about these interfaces
 declare global {
 	namespace App {
+		namespace AppState {
+			type Menu = 'settings' | 'resources' | 'randomizer' | '';
+		}
 		namespace Player {
 			type LifeMoveType = 'subtract' | 'add';
 			type Orientation = 'up' | 'down' | 'left' | 'right';

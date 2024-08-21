@@ -1,31 +1,24 @@
 <script lang="ts">
 	import Menu from '../components/menu/Menu.svelte';
 	import Player from '../components/player/Player.svelte';
+	import { appState } from '../store/app';
 
 	export let players: App.Player.Data[];
-
-	let isMenuOpen = false;
-	let activeMenu = '';
-
-	const toggleMenuOpen = (event: CustomEvent) => {
-		isMenuOpen = !isMenuOpen;
-		activeMenu = event.detail.menuName;
-	};
 </script>
 
 <div class="flex flex-col h-full justify-between">
-	<div class="h-6 w-full flex justify-between gap-2" class:h-[60%]={!isMenuOpen}>
+	<div class="h-6 w-full flex justify-between gap-2" class:h-[60%]={!$appState.isMenuOpen}>
 		<div class="w-1/2">
-			<Player orientation="right" playerData={players[1]} {isMenuOpen} />
+			<Player orientation="right" playerData={players[1]} />
 		</div>
 		<div class="w-1/2">
-			<Player orientation="left" playerData={players[2]} {isMenuOpen} />
+			<Player orientation="left" playerData={players[2]} />
 		</div>
 	</div>
 	<div class="flex-grow">
-		<Menu on:resetLifeTotals on:toggleMenuOpen={toggleMenuOpen} {activeMenu} {isMenuOpen} />
+		<Menu on:resetLifeTotals />
 	</div>
-	<div class="h-6 flex items-end" class:h-[40%]={!isMenuOpen}>
-		<Player orientation={'up'} playerData={players[0]} {isMenuOpen} />
+	<div class="h-6 flex items-end" class:h-[40%]={!$appState.isMenuOpen}>
+		<Player orientation={'up'} playerData={players[0]} />
 	</div>
 </div>

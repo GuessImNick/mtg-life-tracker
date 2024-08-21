@@ -1,18 +1,10 @@
 <script>
 	import ManaPentagon from '$lib/assets/icons/ManaPentagon.svelte';
-	import { createEventDispatcher } from 'svelte';
-
-	export let isMenuOpen;
-
-	const dispatch = createEventDispatcher();
-
-	const onOpenMenu = () => {
-		dispatch('toggleMenuOpen', { menuName: 'resources' });
-	};
+	import { appState, toggleIsMenuOpen } from '$lib/store/app';
 </script>
 
-{#if !isMenuOpen}
-	<button on:click={onOpenMenu}>
+{#if !$appState.isMenuOpen}
+	<button on:click={() => toggleIsMenuOpen('resources')}>
 		<ManaPentagon />
 	</button>
 {/if}

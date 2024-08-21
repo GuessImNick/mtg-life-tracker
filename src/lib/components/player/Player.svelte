@@ -1,10 +1,10 @@
 <script lang="ts">
 	import Minus from '$lib/assets/icons/Minus.svelte';
 	import Plus from '$lib/assets/icons/Plus.svelte';
+	import { appState } from '$lib/store/app';
 
 	export let orientation: App.Player.Orientation = 'up';
 	export let playerData: App.Player.Data;
-	export let isMenuOpen = false;
 
 	let interval: number;
 	let timeout: number;
@@ -62,13 +62,15 @@
 				break;
 		}
 	};
-
 	const onNameClick = () => {};
 </script>
 
 {#if orientation === 'left' || orientation === 'right'}
-	<div class="bg-player flex w-full rounded-3xl relative flex-grow h-6" class:h-full={!isMenuOpen}>
-		{#if !isMenuOpen}
+	<div
+		class="bg-player flex w-full rounded-3xl relative flex-grow h-6"
+		class:h-full={!$appState.isMenuOpen}
+	>
+		{#if !$appState.isMenuOpen}
 			<div class="flex flex-col w-full relative">
 				<button
 					on:mousedown={() => handleMouseDown('subtract')}
@@ -108,10 +110,10 @@
 {:else if orientation === 'up' || orientation === 'down'}
 	<div
 		class="bg-player flex w-full rounded-3xl relative flex-grow h-6"
-		class:h-full={!isMenuOpen}
+		class:h-full={!$appState.isMenuOpen}
 		class:rotate-180={orientation === 'down'}
 	>
-		{#if !isMenuOpen}
+		{#if !$appState.isMenuOpen}
 			<div class="flex w-full relative">
 				<button
 					on:mousedown={() => handleMouseDown('subtract')}

@@ -1,23 +1,23 @@
 <script lang="ts">
-	import { appData, setPlayerCount, setStartingLifeTotal } from '$lib/store/app';
+	import {
+		appSettings,
+		appState,
+		setPlayerCount,
+		setStartingLifeTotal,
+		toggleIsMenuOpen
+	} from '$lib/store/app';
 	import { createEventDispatcher } from 'svelte';
 	import CircularButton from '../circularButton/CircularButton.svelte';
 	import Arrow from '$lib/assets/icons/Arrow.svelte';
 
-	export let isMenuOpen;
-
 	const dispatch = createEventDispatcher();
-
-	const onOpenMenu = (menuName: string) => {
-		dispatch('toggleMenuOpen', { menuName });
-	};
 
 	const isCustomStartingLife = () => {
 		return (
-			$appData.startingLifeTotal !== 20 &&
-			$appData.startingLifeTotal !== 25 &&
-			$appData.startingLifeTotal !== 30 &&
-			$appData.startingLifeTotal !== 40
+			$appSettings.startingLifeTotal !== 20 &&
+			$appSettings.startingLifeTotal !== 25 &&
+			$appSettings.startingLifeTotal !== 30 &&
+			$appSettings.startingLifeTotal !== 40
 		);
 	};
 
@@ -26,7 +26,7 @@
 		const confirm = window.confirm('Are you sure you want to continue?');
 		if (confirm) {
 			setStartingLifeTotal(startingLifeTotal);
-			onOpenMenu('');
+			toggleIsMenuOpen('');
 			dispatch('resetLifeTotals');
 		}
 	};
@@ -36,16 +36,16 @@
 		const confirm = window.confirm('Are you sure you want to continue?');
 		if (confirm) {
 			setPlayerCount(playerCount);
-			onOpenMenu('');
+			toggleIsMenuOpen('');
 			// Dispatch event fucntion to change the selected layout
 		}
 	};
 </script>
 
-{#if isMenuOpen}
+{#if $appState.isMenuOpen}
 	<div class="w-full h-full">
 		<div class="w-full text-center flex px-4 relative flex-col justify-center items-center mt-4">
-			<button on:click={() => onOpenMenu('')} class="text-white absolute left-0 pl-4"
+			<button on:click={() => toggleIsMenuOpen('')} class="text-white absolute left-0 pl-4"
 				><Arrow /></button
 			>
 			<span class="text-gray-400 text-center">Settings</span>
@@ -57,12 +57,12 @@
 				<div><span>Players</span></div>
 				<div class="flex flex-row justify-between mt-3">
 					{#each [2, 3, 4, 5, 6] as playerCount}
-						{#key $appData.playerCount}
+						{#key $appSettings.playerCount}
 							<div>
 								<CircularButton
 									on:click={() => setNewPlayerCount(playerCount)}
 									number={playerCount}
-									highlight={$appData.playerCount === playerCount}
+									highlight={$appSettings.playerCount === playerCount}
 								/>
 							</div>
 						{/key}
@@ -75,14 +75,14 @@
 				<div><span>Starting Life</span></div>
 				<div class="flex flex-row justify-between mt-3">
 					{#each [20, 25, 30, 40, 60] as lifeTotal}
-						{#key $appData.startingLifeTotal}
+						{#key $appSettings.startingLifeTotal}
 							<div>
 								<CircularButton
 									on:click={() => setLifeTotal(lifeTotal)}
 									number={lifeTotal}
 									highlight={lifeTotal === 60
 										? isCustomStartingLife()
-										: $appData.startingLifeTotal === lifeTotal}
+										: $appSettings.startingLifeTotal === lifeTotal}
 								/>
 							</div>
 						{/key}
@@ -92,5 +92,9 @@
 		</div>
 	</div>
 {:else}
-	<CircularButton on:click={() => onOpenMenu('settings')} number={$appData.playerCount} highlight />
+	<CircularButton
+		on:click={() => toggleIsMenuOpen('settings')}
+		number={$appSettings.playerCount}
+		highlight
+	/>
 {/if}

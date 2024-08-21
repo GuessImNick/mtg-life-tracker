@@ -1,18 +1,10 @@
 <script>
 	import Dsix from '$lib/assets/icons/Dsix.svelte';
-	import { createEventDispatcher } from 'svelte';
-
-	export let isMenuOpen;
-
-	const dispatch = createEventDispatcher();
-
-	const onOpenMenu = () => {
-		dispatch('toggleMenuOpen', { menuName: 'randomizer' });
-	};
+	import { appState, toggleIsMenuOpen } from '$lib/store/app';
 </script>
 
-{#if !isMenuOpen}
-	<button on:click={onOpenMenu}>
+{#if !$appState.isMenuOpen}
+	<button on:click={() => toggleIsMenuOpen('randomizer')}>
 		<Dsix />
 	</button>
 {/if}
