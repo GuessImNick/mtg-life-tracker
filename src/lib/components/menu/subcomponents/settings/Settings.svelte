@@ -6,11 +6,9 @@
 		setStartingLifeTotal,
 		toggleIsMenuOpen
 	} from '$lib/store/app';
-	import { createEventDispatcher } from 'svelte';
 	import CircularButton from '../circularButton/CircularButton.svelte';
 	import Arrow from '$lib/assets/icons/Arrow.svelte';
-
-	const dispatch = createEventDispatcher();
+	import { resetLifeTotals } from '$lib/store/player';
 
 	const isCustomStartingLife = () => {
 		return (
@@ -27,7 +25,7 @@
 		if (confirm) {
 			setStartingLifeTotal(startingLifeTotal);
 			toggleIsMenuOpen('');
-			dispatch('resetLifeTotals');
+			resetLifeTotals();
 		}
 	};
 
@@ -37,7 +35,7 @@
 		if (confirm) {
 			setPlayerCount(playerCount);
 			toggleIsMenuOpen('');
-			// Dispatch event fucntion to change the selected layout
+			resetLifeTotals();
 		}
 	};
 </script>

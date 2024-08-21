@@ -1,4 +1,4 @@
-import { writable } from 'svelte/store';
+import { get, writable } from 'svelte/store';
 
 export const appSettings = writable({
 	playerCount: 4,
@@ -7,10 +7,12 @@ export const appSettings = writable({
 
 export const setPlayerCount = (playerCount: number) => {
 	appSettings.update((data) => ({ ...data, playerCount }));
+	toggleIsMenuOpen('');
 };
 
 export const setStartingLifeTotal = (startingLifeTotal: number) => {
 	appSettings.update((data) => ({ ...data, startingLifeTotal }));
+	console.log(get(appSettings))
 };
 
 export const appState = writable({

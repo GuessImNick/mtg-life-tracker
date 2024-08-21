@@ -1,20 +1,10 @@
 <script>
 	import Reset from '$lib/assets/icons/Reset.svelte';
 	import { appSettings, appState } from '$lib/store/app';
+	import { resetLifeTotals } from '$lib/store/player';
 	import Randomizer from './subcomponents/randomizer/Randomizer.svelte';
 	import Resources from './subcomponents/resources/Resources.svelte';
 	import Settings from './subcomponents/settings/Settings.svelte';
-	import { createEventDispatcher } from 'svelte';
-
-	const dispatch = createEventDispatcher();
-
-	const onResetLifeTotals = () => {
-		// TODO: Add clean modal popup
-		const confirm = window.confirm('Are you sure you want to continue?');
-		if (confirm) {
-			dispatch('resetLifeTotals');
-		}
-	};
 </script>
 
 <div
@@ -24,7 +14,7 @@
 >
 	{#if !$appState.isMenuOpen}
 		<div class="flex justify-center items-center flex-grow h-full">
-			<button on:click={onResetLifeTotals} class="h-10 w-10"><Reset /></button>
+			<button on:click={resetLifeTotals} class="h-10 w-10"><Reset /></button>
 		</div>
 	{/if}
 	{#if !$appState.isMenuOpen || $appState.activeMenu === 'settings'}

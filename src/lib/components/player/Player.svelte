@@ -2,9 +2,11 @@
 	import Minus from '$lib/assets/icons/Minus.svelte';
 	import Plus from '$lib/assets/icons/Plus.svelte';
 	import { appState } from '$lib/store/app';
+	import { setPlayerLifeTotal } from '$lib/store/player';
+	import { players } from '$lib/store/player';
 
 	export let orientation: App.Player.Orientation = 'up';
-	export let playerData: App.Player.Data;
+	export let id: number;
 
 	let interval: number;
 	let timeout: number;
@@ -13,10 +15,10 @@
 	const manageLifeTotal = (type: App.Player.LifeMoveType, amount: number = 1) => {
 		switch (type) {
 			case 'add':
-				playerData.lifeTotal += amount;
+				$players[id].lifeTotal += amount;
 				break;
 			case 'subtract':
-				playerData.lifeTotal -= amount;
+				$players[id].lifeTotal -= amount;
 				break;
 
 			default:
@@ -52,11 +54,11 @@
 
 	const lifeTotalStabalizer = () => {
 		switch (true) {
-			case playerData.lifeTotal <= 0:
-				playerData.lifeTotal = 0;
+			case $players[id].lifeTotal <= 0:
+				$players[id].lifeTotal = 0;
 				break;
-			case playerData.lifeTotal >= 999:
-				playerData.lifeTotal = 999;
+			case $players[id].lifeTotal >= 999:
+				$players[id].lifeTotal = 999;
 				break;
 			default:
 				break;
@@ -95,12 +97,12 @@
 						<button
 							on:click={onNameClick}
 							class="bg-[#dfeaf2]/80 py-2 px-3 rounded-lg mt-1 text-lg pointer-events-auto whitespace-nowrap vert"
-							class:rotate-180={orientation === 'left'}>{playerData.playerName}</button
+							class:rotate-180={orientation === 'left'}>{$players[id].playerName}</button
 						>
 					</div>
 					<span
 						class="text-black text-6xl grow w-1/3 flex items-center text-center justify-center vert"
-						class:-rotate-180={orientation === 'left'}>{playerData.lifeTotal}</span
+						class:-rotate-180={orientation === 'left'}>{$players[id].lifeTotal}</span
 					>
 					<div class="grow w-1/3 vert"></div>
 				</div>
@@ -136,11 +138,11 @@
 						<button
 							on:click={onNameClick}
 							class="bg-[#dfeaf2]/80 py-2 px-3 rounded-lg mt-1 text-xl pointer-events-auto"
-							>{playerData.playerName}</button
+							>{$players[id].playerName}</button
 						>
 					</div>
 					<span class="text-black text-7xl grow h-1/3 flex items-center text-center justify-center"
-						>{playerData.lifeTotal}</span
+						>{$players[id].lifeTotal}</span
 					>
 					<div class="grow h-1/3"></div>
 				</div>
