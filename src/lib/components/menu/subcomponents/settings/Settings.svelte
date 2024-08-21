@@ -1,11 +1,96 @@
-<script>
-	import { getPlayerCount } from '$lib/store/app';
+<script lang="ts">
+	import { appData, setPlayerCount, setStartingLifeTotal } from '$lib/store/app';
+	import { createEventDispatcher } from 'svelte';
+	import CircularButton from '../circularButton/CircularButton.svelte';
+	import Arrow from '$lib/assets/icons/Arrow.svelte';
 
-	let playerCount = getPlayerCount();
+	export let isMenuOpen;
+
+	const dispatch = createEventDispatcher();
+
+	const onOpenMenu = (menuName: string) => {
+		dispatch('toggleMenuOpen', { menuName });
+	};
+
+	const isCustomStartingLife = () => {
+		return (
+			$appData.startingLifeTotal !== 20 &&
+			$appData.startingLifeTotal !== 25 &&
+			$appData.startingLifeTotal !== 30 &&
+			$appData.startingLifeTotal !== 40
+		);
+	};
+
+	const setLifeTotal = (startingLifeTotal: number) => {
+		// TODO: Add clean modal popup
+		const confirm = window.confirm('Are you sure you want to continue?');
+		if (confirm) {
+			setStartingLifeTotal(startingLifeTotal);
+			onOpenMenu('');
+			dispatch('resetLifeTotals');
+		}
+	};
+
+	const setNewPlayerCount = (playerCount: number) => {
+		// TODO: Add clean modal popup
+		const confirm = window.confirm('Are you sure you want to continue?');
+		if (confirm) {
+			setPlayerCount(playerCount);
+			onOpenMenu('');
+			// Dispatch event fucntion to change the selected layout
+		}
+	};
 </script>
 
-<button class="rounded-full h-10 w-10 bg-[#42d5ff] flex justify-center items-center">
-	<div class="rounded-full h-8 w-8 bg-[#2d2f30]">
-		<span class="text-white flex justify-center items-center h-full">{playerCount}</span>
+{#if isMenuOpen}
+	<div class="w-full h-full">
+		<div class="w-full text-center flex px-4 relative flex-col justify-center items-center mt-4">
+			<button on:click={() => onOpenMenu('')} class="text-white absolute left-0 pl-4"
+				><Arrow /></button
+			>
+			<span class="text-gray-400 text-center">Settings</span>
+		</div>
+
+		<div class="w-full text-center text-white mt-4 flex flex-col items-center">
+			<!-- Player Count -->
+			<div class="w-3/4">
+				<div><span>Players</span></div>
+				<div class="flex flex-row justify-between mt-3">
+					{#each [2, 3, 4, 5, 6] as playerCount}
+						{#key $appData.playerCount}
+							<div>
+								<CircularButton
+									on:click={() => setNewPlayerCount(playerCount)}
+									number={playerCount}
+									highlight={$appData.playerCount === playerCount}
+								/>
+							</div>
+						{/key}
+					{/each}
+				</div>
+			</div>
+
+			<!-- Starting Life Total -->
+			<div class="mt-6 w-3/4">
+				<div><span>Starting Life</span></div>
+				<div class="flex flex-row justify-between mt-3">
+					{#each [20, 25, 30, 40, 60] as lifeTotal}
+						{#key $appData.startingLifeTotal}
+							<div>
+								<CircularButton
+									on:click={() => setLifeTotal(lifeTotal)}
+									number={lifeTotal}
+									highlight={lifeTotal === 60
+										? isCustomStartingLife()
+										: $appData.startingLifeTotal === lifeTotal}
+								/>
+							</div>
+						{/key}
+					{/each}
+				</div>
+			</div>
+		</div>
 	</div>
-</button>
+{:else}
+	<CircularButton on:click={() => onOpenMenu('settings')} number={$appData.playerCount} highlight />
+{/if}

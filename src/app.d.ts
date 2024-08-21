@@ -7,6 +7,7 @@ declare global {
 			type Orientation = 'up' | 'down' | 'left' | 'right';
 
 			type Data = {
+				id: number;
 				lifeTotal: number;
 				playerName: string;
 			};
