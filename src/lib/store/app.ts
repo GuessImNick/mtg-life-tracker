@@ -2,17 +2,20 @@ import { get, writable } from 'svelte/store';
 
 export const appSettings = writable({
 	playerCount: 4,
-	startingLifeTotal: 40
+	startingLifeTotal: 40,
+	customStartingLifeTotal: 60
 });
 
 export const setPlayerCount = (playerCount: number) => {
 	appSettings.update((data) => ({ ...data, playerCount }));
-	toggleIsMenuOpen('');
 };
 
 export const setStartingLifeTotal = (startingLifeTotal: number) => {
 	appSettings.update((data) => ({ ...data, startingLifeTotal }));
-	toggleIsMenuOpen('');
+};
+
+export const setCustomStartingLifeTotal = (customStartingLifeTotal: number) => {
+	appSettings.update((data) => ({ ...data, customStartingLifeTotal }));
 };
 
 export const appState = writable({

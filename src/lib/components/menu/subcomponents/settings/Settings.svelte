@@ -2,6 +2,7 @@
 	import {
 		appSettings,
 		appState,
+		setCustomStartingLifeTotal,
 		setPlayerCount,
 		setStartingLifeTotal,
 		toggleIsMenuOpen
@@ -19,11 +20,33 @@
 		);
 	};
 
+	const handleCustomLifeTotalKeyPress = (event: KeyboardEvent) => {
+		const { key } = event;
+
+		const allowedKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Enter'];
+
+		if (!allowedKeys.includes(key) && !/^\d$/.test(key)) {
+			event.preventDefault();
+		}
+
+		if ($appSettings.customStartingLifeTotal < 0) {
+			setCustomStartingLifeTotal(1);
+		} else if ($appSettings.customStartingLifeTotal > 999) {
+			setCustomStartingLifeTotal(999);
+		}
+
+		if (key === 'Enter') {
+			setLifeTotal($appSettings.customStartingLifeTotal);
+			if (!isCustomStartingLife()) setCustomStartingLifeTotal(60);
+		}
+	};
+
 	const setLifeTotal = (startingLifeTotal: number) => {
 		// TODO: Add clean modal popup
 		const confirm = window.confirm('Are you sure you want to continue?');
 		if (confirm) {
 			setStartingLifeTotal(startingLifeTotal);
+			toggleIsMenuOpen('');
 			resetLifeTotals();
 		}
 	};
@@ -33,6 +56,7 @@
 		const confirm = window.confirm('Are you sure you want to continue?');
 		if (confirm) {
 			setPlayerCount(playerCount);
+			toggleIsMenuOpen('');
 			resetLifeTotals();
 		}
 	};
@@ -70,17 +94,35 @@
 			<div class="mt-6 w-3/4">
 				<div><span>Starting Life</span></div>
 				<div class="flex flex-row justify-between mt-3">
-					{#each [20, 25, 30, 40, 60] as lifeTotal}
+					{#each [20, 25, 30, 40, 'custom'] as lifeTotal}
 						{#key $appSettings.startingLifeTotal}
-							<div>
-								<CircularButton
-									on:click={() => setLifeTotal(lifeTotal)}
-									number={lifeTotal}
-									highlight={lifeTotal === 60
-										? isCustomStartingLife()
-										: $appSettings.startingLifeTotal === lifeTotal}
-								/>
-							</div>
+							{#if typeof lifeTotal === 'number'}
+								<div>
+									<CircularButton
+										on:click={() => setLifeTotal(lifeTotal)}
+										number={lifeTotal}
+										highlight={lifeTotal === 60
+											? isCustomStartingLife()
+											: $appSettings.startingLifeTotal === lifeTotal}
+									/>
+								</div>
+							{:else}
+								<div>
+									<CircularButton
+										number={$appSettings.customStartingLifeTotal}
+										customText
+										highlight={isCustomStartingLife()}
+									>
+										<input
+											bind:value={$appSettings.customStartingLifeTotal}
+											on:keypress={handleCustomLifeTotalKeyPress}
+											type="number"
+											class="bg-transparent w-8 h-8 overflow-hidden rounded-full text-center outline-none"
+											max="999"
+										/>
+									</CircularButton>
+								</div>
+							{/if}
 						{/key}
 					{/each}
 				</div>
