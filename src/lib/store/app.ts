@@ -1,4 +1,4 @@
-import { get, writable } from 'svelte/store';
+import { get, writable, type Writable } from 'svelte/store';
 
 export const appSettings = writable({
 	playerCount: 4,
@@ -25,4 +25,37 @@ export const appState = writable({
 
 export const toggleIsMenuOpen = (menu: App.AppState.Menu = '') => {
 	appState.update((data) => ({ activeMenu: menu, isMenuOpen: !data.isMenuOpen }));
+};
+
+export const resourceCounter: Writable<{ [key in App.Resources.Resource]: number }> = writable({
+	white: 0,
+	blue: 0,
+	black: 0,
+	red: 0,
+	green: 0,
+	waste: 0,
+	storm: 0
+});
+
+const initialResource = {
+	white: 0,
+	blue: 0,
+	black: 0,
+	red: 0,
+	green: 0,
+	waste: 0,
+	storm: 0
+};
+
+export const setResource = (resourceType: App.Resources.Resource, count: number) => {
+	resourceCounter.update((currentResources) => {
+		const resources = { ...currentResources };
+		resources[resourceType] = count;
+		if (resources[resourceType] <= 0) resources[resourceType] = 0;
+		return resources;
+	});
+};
+
+export const resetResouces = () => {
+	resourceCounter.set(initialResource)
 };

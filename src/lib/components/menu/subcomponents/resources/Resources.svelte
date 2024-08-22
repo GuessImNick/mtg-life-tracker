@@ -1,14 +1,16 @@
 <script>
 	import Arrow from '$lib/assets/icons/Arrow.svelte';
 	import ManaPentagon from '$lib/assets/icons/ManaPentagon.svelte';
-	import { appState, toggleIsMenuOpen } from '$lib/store/app';
+	import { appState, toggleIsMenuOpen, resetResouces } from '$lib/store/app';
 	import ManaCoutner from './subcomponents/manaCoutner/ManaCoutner.svelte';
 </script>
 
 {#if $appState.isMenuOpen}
 	<div class="w-full max-h-[668px] overflow-scroll scrollbar-hidden">
 		<div class="flex flex-col">
-			<div class="w-full text-center flex px-4 flex-col justify-between items-center my-4 py-2 sticky top-[-1px] bg-black h-full">
+			<div
+				class="w-full text-center flex px-4 flex-col justify-between items-center my-4 py-2 sticky top-[-1px] bg-black h-full"
+			>
 				<button on:click={() => toggleIsMenuOpen('')} class="text-white absolute left-0 pl-4">
 					<Arrow />
 				</button>
@@ -37,8 +39,14 @@
 					</div>
 				</div>
 				<div class="flex justify-center gap-2 py-2">
-					<button class="border rounded-md bg-[#2d2f30] px-2 w-20">close</button>
-					<button class="border rounded-md bg-[#2d2f30] border-red-500 px-2 w-20">clear</button>
+					<button
+						on:click={() => toggleIsMenuOpen('')}
+						class="border rounded-md bg-[#2d2f30] px-2 w-20">close</button
+					>
+					<button
+						on:click={resetResouces}
+						class="border rounded-md bg-[#2d2f30] border-red-500 px-2 w-20">clear</button
+					>
 				</div>
 			</div>
 		</div>
