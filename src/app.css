@@ -21,10 +21,3 @@
 		-ms-overflow-style: none; /* IE and Edge */
 	}
 }
-
-html {
-	overscroll-behavior: none;
-}
-body {
-	overflow-y: scroll;
-}

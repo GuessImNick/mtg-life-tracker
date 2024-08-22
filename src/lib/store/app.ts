@@ -37,16 +37,6 @@ export const resourceCounter: Writable<{ [key in App.Resources.Resource]: number
 	storm: 0
 });
 
-const initialResource = {
-	white: 0,
-	blue: 0,
-	black: 0,
-	red: 0,
-	green: 0,
-	waste: 0,
-	storm: 0
-};
-
 export const setResource = (resourceType: App.Resources.Resource, count: number) => {
 	resourceCounter.update((currentResources) => {
 		const resources = { ...currentResources };
@@ -56,6 +46,12 @@ export const setResource = (resourceType: App.Resources.Resource, count: number)
 	});
 };
 
-export const resetResouces = () => {
-	resourceCounter.set(initialResource)
+export const resetResources = () => {
+	resourceCounter.update((currentResources) => {
+		const resources = { ...currentResources };
+		for (const resource in resources) {
+			resources[resource as App.Resources.Resource] = 0;
+		}
+		return resources;
+	});
 };

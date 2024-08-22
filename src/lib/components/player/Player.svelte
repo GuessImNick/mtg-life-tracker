@@ -67,15 +67,14 @@
 </script>
 
 {#if orientation === 'left' || orientation === 'right'}
-	<div
-		class="bg-player flex w-full rounded-3xl flex-grow h-6"
-		class:h-full={!$appState.isMenuOpen}
-	>
+	<div class="bg-player flex w-full rounded-3xl flex-grow h-6" class:h-full={!$appState.isMenuOpen}>
 		{#if !$appState.isMenuOpen}
 			<div class="flex flex-col w-full relative">
 				<button
 					on:mousedown={() => handleMouseDown('subtract')}
 					on:mouseup={() => handleMouseUp('subtract')}
+					on:touchstart={() => handleMouseDown('subtract')}
+					on:touchend={() => handleMouseUp('subtract')}
 					class="h-1/2 flex justify-center items-start active:bg-player-light rounded-t-3xl"
 				>
 					<div class="rotate-90"><Minus /></div>
@@ -83,6 +82,8 @@
 				<button
 					on:mousedown={() => handleMouseDown('add')}
 					on:mouseup={() => handleMouseUp('add')}
+					on:touchstart={() => handleMouseDown('add')}
+					on:touchend={() => handleMouseUp('add')}
 					class="h-1/2 flex justify-center items-end active:bg-player-light rounded-b-3xl"
 				>
 					<Plus />

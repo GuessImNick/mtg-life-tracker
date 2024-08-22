@@ -1,7 +1,7 @@
 <script>
 	import Arrow from '$lib/assets/icons/Arrow.svelte';
 	import ManaPentagon from '$lib/assets/icons/ManaPentagon.svelte';
-	import { appState, toggleIsMenuOpen, resetResouces } from '$lib/store/app';
+	import { appState, toggleIsMenuOpen, resetResources } from '$lib/store/app';
 	import ManaCoutner from './subcomponents/manaCoutner/ManaCoutner.svelte';
 
 	$: innerHeight = 0;
@@ -48,7 +48,7 @@
 						class="border rounded-md bg-[#2d2f30] px-2 w-20">close</button
 					>
 					<button
-						on:click={resetResouces}
+						on:click={resetResources}
 						class="border rounded-md bg-[#2d2f30] border-red-500 px-2 w-20">clear</button
 					>
 				</div>
