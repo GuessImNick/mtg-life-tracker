@@ -75,7 +75,7 @@
 					on:mouseup={() => handleMouseUp('subtract')}
 					on:touchstart={() => handleMouseDown('subtract')}
 					on:touchend={() => handleMouseUp('subtract')}
-					class="h-1/2 flex justify-center items-start active:bg-player-light rounded-t-3xl"
+					class="h-1/2 flex justify-center items-start active:bg-player-light rounded-t-3xl select-none"
 				>
 					<div class="rotate-90"><Minus /></div>
 				</button>
@@ -84,7 +84,7 @@
 					on:mouseup={() => handleMouseUp('add')}
 					on:touchstart={() => handleMouseDown('add')}
 					on:touchend={() => handleMouseUp('add')}
-					class="h-1/2 flex justify-center items-end active:bg-player-light rounded-b-3xl"
+					class="h-1/2 flex justify-center items-end active:bg-player-light rounded-b-3xl select-none"
 				>
 					<Plus />
 				</button>
