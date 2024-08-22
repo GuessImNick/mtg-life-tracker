@@ -1,6 +1,6 @@
 <script>
 	import Reset from '$lib/assets/icons/Reset.svelte';
-	import { appSettings, appState } from '$lib/store/app';
+	import { appState } from '$lib/store/app';
 	import { resetLifeTotals } from '$lib/store/player';
 	import Randomizer from './subcomponents/randomizer/Randomizer.svelte';
 	import Resources from './subcomponents/resources/Resources.svelte';

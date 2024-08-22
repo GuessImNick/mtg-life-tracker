@@ -2,7 +2,7 @@
 	import Minus from '$lib/assets/icons/Minus.svelte';
 	import Plus from '$lib/assets/icons/Plus.svelte';
 	import { appState } from '$lib/store/app';
-	import { players } from '$lib/store/player';
+	import { players, setTempLifeDiff } from '$lib/store/player';
 
 	export let orientation: App.Player.Orientation = 'up';
 	export let id: number;
@@ -11,13 +11,18 @@
 	let timeout: number;
 	let isHolding = false;
 
+	$: innerWidth = 0;
+	$: isMobile = innerWidth < 640;
+
 	const manageLifeTotal = (type: App.Player.LifeMoveType, amount: number = 1) => {
 		switch (type) {
 			case 'add':
 				$players[id].lifeTotal += amount;
+				setTempLifeDiff(id + 1, type, amount);
 				break;
 			case 'subtract':
 				$players[id].lifeTotal -= amount;
+				setTempLifeDiff(id + 1, type, amount);
 				break;
 
 			default:
@@ -27,6 +32,35 @@
 	};
 
 	const handleMouseDown = (type: App.Player.LifeMoveType) => {
+		if (!isMobile) {
+			isHolding = true;
+
+			timeout = setTimeout(() => {
+				manageLifeTotal(type, 10);
+				if (isHolding) {
+					interval = setInterval(() => {
+						manageLifeTotal(type, 10);
+					}, 1000);
+				}
+			}, 1000);
+		}
+	};
+
+	const handleMouseUp = (type: App.Player.LifeMoveType) => {
+		if (!isMobile) {
+			if (interval) {
+				clearInterval(interval);
+				interval = 0;
+			} else {
+				manageLifeTotal(type);
+			}
+			clearTimeout(timeout);
+			timeout = 0;
+			isHolding = false;
+		}
+	};
+
+	const handleTouchStart = (type: App.Player.LifeMoveType) => {
 		isHolding = true;
 
 		timeout = setTimeout(() => {
@@ -39,7 +73,7 @@
 		}, 1000);
 	};
 
-	const handleMouseUp = (type: App.Player.LifeMoveType) => {
+	const handleTouchEnd = (type: App.Player.LifeMoveType) => {
 		if (interval) {
 			clearInterval(interval);
 			interval = 0;
@@ -63,31 +97,41 @@
 				break;
 		}
 	};
+
+	const setLifeTotalDiff = () => {};
 	const onNameClick = () => {};
 </script>
+
+<svelte:window bind:innerWidth />
 
 {#if orientation === 'left' || orientation === 'right'}
 	<div class="bg-player flex w-full rounded-3xl flex-grow h-6" class:h-full={!$appState.isMenuOpen}>
 		{#if !$appState.isMenuOpen}
 			<div class="flex flex-col w-full relative">
-				<button
-					on:mousedown={() => handleMouseDown('subtract')}
-					on:mouseup={() => handleMouseUp('subtract')}
-					on:touchstart={() => handleMouseDown('subtract')}
-					on:touchend={() => handleMouseUp('subtract')}
-					class="h-1/2 flex justify-center items-start active:bg-player-light rounded-t-3xl select-none"
-				>
-					<div class="rotate-90"><Minus /></div>
-				</button>
-				<button
-					on:mousedown={() => handleMouseDown('add')}
-					on:mouseup={() => handleMouseUp('add')}
-					on:touchstart={() => handleMouseDown('add')}
-					on:touchend={() => handleMouseUp('add')}
-					class="h-1/2 flex justify-center items-end active:bg-player-light rounded-b-3xl select-none"
-				>
-					<Plus />
-				</button>
+				<div class="h-full flex flex-col" class:flex-col-reverse={orientation === 'left'}>
+					<button
+						on:mousedown={() => handleMouseDown('subtract')}
+						on:mouseup={() => handleMouseUp('subtract')}
+						on:touchstart={() => handleTouchStart('subtract')}
+						on:touchend={() => handleTouchEnd('subtract')}
+						class="w-full h-1/2 flex justify-center {orientation === 'left'
+							? 'items-end rounded-b-3xl'
+							: 'items-start rounded-t-3xl'} active:bg-player-light select-none"
+					>
+						<div class="rotate-90"><Minus /></div>
+					</button>
+					<button
+						on:mousedown={() => handleMouseDown('add')}
+						on:mouseup={() => handleMouseUp('add')}
+						on:touchstart={() => handleTouchStart('add')}
+						on:touchend={() => handleTouchEnd('add')}
+						class="w-full h-1/2 flex justify-center {orientation === 'left'
+							? 'items-start rounded-t-3xl'
+							: 'items-end rounded-b-3xl'} active:bg-player-light select-none"
+					>
+						<Plus />
+					</button>
+				</div>
 				<div
 					class="absolute h-full w-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer pointer-events-none flex items-center"
 					class:flex-row={orientation === 'left'}
@@ -100,10 +144,22 @@
 							class:rotate-180={orientation === 'left'}>{$players[id].playerName}</button
 						>
 					</div>
-					<span
-						class="text-black text-6xl grow w-1/3 flex items-center text-center justify-center vert"
-						class:-rotate-180={orientation === 'left'}>{$players[id].lifeTotal}</span
+					<div
+						class="w-1/3 flex justify-center items-center vert"
+						class:flex-row-reverse={orientation === 'left'}
 					>
+						<span class="h-16 text-center" class:rotate-180={orientation === 'left'}
+							>{$players[id].tempLifeDiff < 0 ? `-${$players[id].tempLifeDiff * -1}` : ''}</span
+						>
+						<span
+							class="text-black text-6xl flex items-center text-center"
+							class:-rotate-180={orientation === 'left'}>{$players[id].lifeTotal}</span
+						>
+						<span class="h-16 text-center" class:rotate-180={orientation === 'left'}
+							>{$players[id].tempLifeDiff > 0 ? `+${$players[id].tempLifeDiff}` : ''}</span
+						>
+					</div>
+
 					<div class="grow w-1/3 vert"></div>
 				</div>
 			</div>
@@ -132,7 +188,7 @@
 					<Plus />
 				</button>
 				<div
-					class="absolute h-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer pointer-events-none flex flex-col justify-between"
+					class="absolute w-full h-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer pointer-events-none flex flex-col justify-between"
 				>
 					<div class="grow h-1/3 text-center">
 						<button
@@ -141,9 +197,15 @@
 							>{$players[id].playerName}</button
 						>
 					</div>
-					<span class="text-black text-7xl grow h-1/3 flex items-center text-center justify-center"
-						>{$players[id].lifeTotal}</span
-					>
+					<div class="h-1/3 flex justify-center items-center flex-row">
+						<span class="w-16 text-center"
+							>{$players[id].tempLifeDiff < 0 ? `-${$players[id].tempLifeDiff * -1}` : ''}</span
+						>
+						<span class="text-black text-7xl"> {$players[id].lifeTotal}</span>
+						<span class="w-16 text-center"
+							>{$players[id].tempLifeDiff > 0 ? `+${$players[id].tempLifeDiff}` : ''}</span
+						>
+					</div>
 					<div class="grow h-1/3"></div>
 				</div>
 			</div>

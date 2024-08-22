@@ -1,7 +1,7 @@
 <script>
 	import Arrow from '$lib/assets/icons/Arrow.svelte';
 	import ManaPentagon from '$lib/assets/icons/ManaPentagon.svelte';
-	import { appState, toggleIsMenuOpen, resetResources } from '$lib/store/app';
+	import { appState, toggleIsMenuOpen, resetResources, appSettings } from '$lib/store/app';
 	import ManaCoutner from './subcomponents/manaCoutner/ManaCoutner.svelte';
 
 	$: innerHeight = 0;
@@ -10,7 +10,10 @@
 <svelte:window bind:innerHeight />
 
 {#if $appState.isMenuOpen}
-	<div class="w-full overflow-scroll scrollbar-hidden" style="max-height: {innerHeight - 80}px;">
+	<div
+		class="w-full overflow-scroll scrollbar-hidden"
+		style="max-height: {innerHeight - ($appSettings.playerCount >= 5 ? 110 : 80)}px;"
+	>
 		<div class="flex flex-col">
 			<div
 				class="w-full text-center flex px-4 flex-col justify-between items-center my-4 py-2 sticky top-[-1px] bg-black"

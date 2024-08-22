@@ -13,6 +13,7 @@ declare global {
 				id: number;
 				lifeTotal: number;
 				playerName: string;
+				tempLifeDiff: number;
 			};
 		}
 		namespace Resources {
