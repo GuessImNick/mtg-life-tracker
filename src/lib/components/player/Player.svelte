@@ -176,6 +176,8 @@
 				<button
 					on:mousedown={() => handleMouseDown('subtract')}
 					on:mouseup={() => handleMouseUp('subtract')}
+					on:touchstart={() => handleTouchStart('subtract')}
+					on:touchend={() => handleTouchEnd('subtract')}
 					class="w-1/2 flex justify-start items-center active:bg-player-light rounded-l-3xl"
 				>
 					<Minus />
@@ -183,6 +185,8 @@
 				<button
 					on:mousedown={() => handleMouseDown('add')}
 					on:mouseup={() => handleMouseUp('add')}
+					on:touchstart={() => handleTouchStart('add')}
+					on:touchend={() => handleTouchEnd('add')}
 					class="w-1/2 flex justify-end items-center active:bg-player-light rounded-r-3xl"
 				>
 					<Plus />
