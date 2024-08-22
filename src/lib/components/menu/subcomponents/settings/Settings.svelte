@@ -65,7 +65,7 @@
 </script>
 
 {#if $appState.isMenuOpen}
-	<div class="w-full max-h-[calc(100vh-80px)] overflow-scroll scrollbar-hidden scroll-smooth ios-scroll">
+	<div class="w-full max-h-[calc(100vh-120px)] overflow-scroll scrollbar-hidden scroll-smooth ios-scroll">
 		<div
 			class="w-full text-center flex px-4 flex-col justify-between items-center my-4 py-2 sticky top-[-1px] bg-black h-full"
 		>
