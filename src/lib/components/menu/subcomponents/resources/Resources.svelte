@@ -11,7 +11,7 @@
 	>
 		<div class="flex flex-col">
 			<div
-				class="w-full text-center flex px-4 flex-col justify-between items-center my-4 py-2 sticky top-[-1px] bg-black h-full"
+				class="invisible w-full text-center flex px-4 flex-col justify-between items-center my-4 py-2 sticky top-[-1px] bg-black h-full"
 			>
 				<button on:click={() => toggleIsMenuOpen('')} class="text-white absolute left-0 pl-4">
 					<Arrow />
