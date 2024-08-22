@@ -2,7 +2,6 @@
 	import Minus from '$lib/assets/icons/Minus.svelte';
 	import Plus from '$lib/assets/icons/Plus.svelte';
 	import { appState } from '$lib/store/app';
-	import { setPlayerLifeTotal } from '$lib/store/player';
 	import { players } from '$lib/store/player';
 
 	export let orientation: App.Player.Orientation = 'up';
@@ -69,7 +68,7 @@
 
 {#if orientation === 'left' || orientation === 'right'}
 	<div
-		class="bg-player flex w-full rounded-3xl relative flex-grow h-6"
+		class="bg-player flex w-full rounded-3xl flex-grow h-6"
 		class:h-full={!$appState.isMenuOpen}
 	>
 		{#if !$appState.isMenuOpen}
@@ -111,7 +110,7 @@
 	</div>
 {:else if orientation === 'up' || orientation === 'down'}
 	<div
-		class="bg-player flex w-full rounded-3xl relative flex-grow h-6"
+		class="bg-player flex w-full rounded-3xl flex-grow h-6"
 		class:h-full={!$appState.isMenuOpen}
 		class:rotate-180={orientation === 'down'}
 	>

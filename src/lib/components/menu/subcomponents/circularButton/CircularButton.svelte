@@ -1,13 +1,27 @@
 <script lang="ts">
-	export let number: number;
+	export let number: number = 0;
 	export let highlight = false;
 	export let customText = false;
+	export let light = false;
+	export let small = false;
 
-	const outline = highlight ? 'bg-[#42d5ff]' : 'bg-[#2d2f30]';
+	let outline = 'bg-[#2d2f30]';
+	let outerSize = small ? 'h-5 w-5' : 'h-10 w-10';
+	let innerSize = small ? 'h-4 w-4' : 'h-8 w-8';
+
+	if (highlight) {
+		outline = 'bg-[#42d5ff]';
+		if (light) {
+			outline = 'bg-white';
+		}
+	}
 </script>
 
-<button class="rounded-full h-10 w-10 flex justify-center items-center {outline}" on:click>
-	<div class="rounded-full h-8 w-8 bg-[#2d2f30]">
+<button
+	class="rounded-full flex justify-center items-center {outline} {outerSize}"
+	on:click
+>
+	<div class="rounded-full bg-[#2d2f30] {innerSize}">
 		<span class="text-white flex justify-center items-center h-full">
 			{#if customText}
 				<slot />

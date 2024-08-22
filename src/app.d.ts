@@ -15,6 +15,9 @@ declare global {
 				playerName: string;
 			};
 		}
+		namespace Resources {
+			type Resource = 'white' | 'blue' | 'black' | 'red' | 'green' | 'waste' | 'storm';
+		}
 	}
 }
 

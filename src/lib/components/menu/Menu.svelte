@@ -8,29 +8,29 @@
 </script>
 
 <div
-	class="flex justify-around py-1.5 items-center h-14 mb-full"
-	class:h-full={$appState.isMenuOpen}
+	class="flex justify-around py-1.5 items-center"
+	class:h-14={!$appState.isMenuOpen}
 	class:mt-6={$appState.isMenuOpen && $appSettings.playerCount > 4}
 >
 	{#if !$appState.isMenuOpen}
-		<div class="flex justify-center items-center flex-grow h-full">
+		<div class="flex justify-center items-center flex-grow">
 			<button on:click={resetLifeTotals} class="h-10 w-10"><Reset /></button>
 		</div>
 	{/if}
 	{#if !$appState.isMenuOpen || $appState.activeMenu === 'settings'}
-		<div class="flex justify-center items-center flex-grow h-full">
+		<div class="flex justify-center items-center flex-grow">
 			<Settings on:resetLifeTotals />
 		</div>
 	{/if}
 
 	{#if !$appState.isMenuOpen || $appState.activeMenu === 'resources'}
-		<div class="flex justify-center items-center flex-grow h-full">
+		<div class="flex justify-center items-center flex-grow">
 			<Resources />
 		</div>
 	{/if}
 
 	{#if !$appState.isMenuOpen || $appState.activeMenu === 'randomizer'}
-		<div class="flex justify-center items-center flex-grow h-full">
+		<div class="flex justify-center items-center flex-grow">
 			<Randomizer />
 		</div>
 	{/if}
