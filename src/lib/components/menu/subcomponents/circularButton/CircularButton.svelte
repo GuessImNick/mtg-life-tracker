@@ -6,8 +6,8 @@
 	export let small = false;
 
 	let outline = 'bg-[#2d2f30]';
-	let outerSize = small ? 'h-5 w-5' : 'h-10 w-10';
-	let innerSize = small ? 'h-4 w-4' : 'h-8 w-8';
+	let outerSize = small ? 'h-7 w-7' : 'h-10 w-10';
+	let innerSize = small ? 'h-6 w-6' : 'h-8 w-8';
 
 	if (highlight) {
 		outline = 'bg-[#42d5ff]';
