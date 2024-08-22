@@ -11,7 +11,7 @@
 
 <svelte:window bind:innerWidth />
 
-<div class="w-full bg-black px-1 pt-2" style="max-width: {innerWidth}px;">
+<div class="w-full bg-black px-1 pt-2 select-none" style="max-width: {innerWidth}px;">
 	{#if $appSettings.playerCount === 2}
 		<TwoPlayerLayout />
 	{:else if $appSettings.playerCount === 3}
