@@ -65,11 +65,9 @@
 </script>
 
 {#if $appState.isMenuOpen}
-	<div
-		class="w-full max-h-[calc(100vh-80px)] overflow-scroll scrollbar-hidden scroll-smooth overscroll-none"
-	>
+	<div class="w-full max-h-[calc(100vh-80px)] overflow-scroll scrollbar-hidden">
 		<div
-			class="w-full text-center flex px-4 flex-col justify-between items-center my-4 py-2 sticky top-[-1px] bg-black h-full"
+			class="w-full text-center flex px-4 flex-col justify-between items-center my-4 py-2 sticky top-[-1px] bg-black"
 		>
 			<button on:click={() => toggleIsMenuOpen('')} class="text-white absolute left-0 pl-4"
 				><Arrow /></button
