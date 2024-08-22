@@ -10,7 +10,6 @@
 <div
 	class="flex justify-around py-1.5 items-center"
 	class:h-14={!$appState.isMenuOpen}
-	class:mt-6={$appState.isMenuOpen && $appSettings.playerCount > 4}
 >
 	{#if !$appState.isMenuOpen}
 		<div class="flex justify-center items-center flex-grow">

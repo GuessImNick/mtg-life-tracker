@@ -6,7 +6,7 @@
 </script>
 
 {#if $appState.isMenuOpen}
-	<div class="w-full max-h-[668px] overflow-scroll scrollbar-hidden">
+	<div class="w-full max-h-[calc(100vh-80px)] overflow-scroll scrollbar-hidden">
 		<div class="flex flex-col">
 			<div
 				class="w-full text-center flex px-4 flex-col justify-between items-center my-4 py-2 sticky top-[-1px] bg-black h-full"

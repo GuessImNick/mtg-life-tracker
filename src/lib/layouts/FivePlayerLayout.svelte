@@ -6,7 +6,7 @@
 </script>
 
 <div class="flex flex-col h-full justify-between">
-	<div class="h-6 flex flex-col gap-2" class:h-[70%]={!$appState.isMenuOpen}>
+	<div class="flex flex-col gap-2 bg-black sticky top-0" class:h-[70%]={!$appState.isMenuOpen}>
 		<div class="h-full w-full flex justify-between gap-2">
 			<div class="w-1/2">
 				<Player orientation="right" id={2} />
@@ -27,7 +27,11 @@
 	<div class="flex-grow">
 		<Menu />
 	</div>
-	<div class="h-6 flex items-end" class:h-[30%]={!$appState.isMenuOpen}>
+	<div
+		class="flex items-end bg-black sticky bottom-0"
+		class:h-[30%]={!$appState.isMenuOpen}
+		class:py-2={$appState.isMenuOpen}
+	>
 		<Player orientation={'up'} id={0} />
 	</div>
 </div>
