@@ -10,7 +10,7 @@
 
 </script>
 
-<div class="w-full max-w-[24rem] bg-black px-1 py-2">
+<div class="w-full max-w-[24rem] bg-black px-1 pt-2">
 	{#if $appSettings.playerCount === 2}
 		<TwoPlayerLayout />
 	{:else if $appSettings.playerCount === 3}

@@ -20,9 +20,9 @@
 		<Menu />
 	</div>
 	<div
-		class="w-full flex justify-between gap-2 bg-black sticky bottom-0"
+		class="w-full flex justify-between gap-2 bg-black sticky bottom-0 pb-2"
 		class:h-full={!$appState.isMenuOpen}
-		class:py-2={$appState.isMenuOpen}
+		class:pt-2={$appState.isMenuOpen}
 	>
 		<div class="w-1/2">
 			<Player orientation="right" id={0} />

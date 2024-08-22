@@ -28,9 +28,9 @@
 		<Menu />
 	</div>
 	<div
-		class="flex flex-col gap-2 bg-black sticky bottom-0"
+		class="flex flex-col gap-2 bg-black sticky bottom-0 pb-2"
 		class:h-[33%]={!$appState.isMenuOpen}
-		class:py-2={$appState.isMenuOpen}
+		class:pt-2={$appState.isMenuOpen}
 	>
 		<div class="h-full w-full flex justify-between gap-2">
 			<div class="w-1/2">

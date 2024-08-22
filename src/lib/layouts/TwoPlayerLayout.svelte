@@ -12,9 +12,9 @@
 		<Menu />
 	</div>
 	<div
-		class="flex items-end bg-black sticky bottom-0"
+		class="flex items-end bg-black sticky bottom-0 pb-2"
 		class:h-full={!$appState.isMenuOpen}
-		class:py-2={$appState.isMenuOpen}
+		class:pt-2={$appState.isMenuOpen}
 	>
 		<Player id={0} />
 	</div>
