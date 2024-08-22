@@ -6,11 +6,12 @@
 	import FivePlayerLayout from '$lib/layouts/FivePlayerLayout.svelte';
 	import SixPlayerLayoutOne from '$lib/layouts/SixPlayerLayoutOne.svelte';
 
-	$: console.log($appState.isMenuOpen)
-
+	$: innerWidth = 0;
 </script>
 
-<div class="w-full max-w-[24rem] bg-black px-1 pt-2">
+<svelte:window bind:innerWidth />
+
+<div class="w-full bg-black px-1 pt-2" style="max-width: {innerWidth}px;">
 	{#if $appSettings.playerCount === 2}
 		<TwoPlayerLayout />
 	{:else if $appSettings.playerCount === 3}
