@@ -20,14 +20,11 @@
 		scrollbar-width: none; /* Firefox */
 		-ms-overflow-style: none; /* IE and Edge */
 	}
-
-	.ios-scroll {
-		-webkit-overflow-scrolling: touch;
-	}
 }
 
-html,
+html {
+	overscroll-behavior: none;
+}
 body {
-  position: fixed;
-  overflow: hidden;
+	overflow-y: scroll;
 }
