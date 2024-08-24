@@ -13,7 +13,7 @@ const config = {
 		// See https://kit.svelte.dev/docs/adapters for more information about adapters.
 		adapter: adapter({
 			images: {
-				sizes: [640, 828, 1200, 1920, 3840],
+				sizes: [640, 960, 1280, 1920, 3840],
 				formats: ['image/avif', 'image/webp'],
 				minimumCacheTTL: 300,
 				domains: ['mtg-life-tracker.vercel.app']
