@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Minus from '$lib/assets/icons/Minus.svelte';
 	import Plus from '$lib/assets/icons/Plus.svelte';
-	import { appState } from '$lib/store/app';
+	import { appState, appSettings } from '$lib/store/app';
 	import { players, setTempLifeDiff } from '$lib/store/player';
 
 	export let orientation: App.Player.Orientation = 'up';
@@ -148,14 +148,21 @@
 						class="w-1/3 flex justify-center items-center vert"
 						class:flex-row-reverse={orientation === 'left'}
 					>
-						<span class="h-16 text-center" class:rotate-180={orientation === 'left'}
+						<span
+							class="h-16 text-center"
+							class:rotate-180={orientation === 'left'}
+							class:h-8={$appSettings.playerCount >= 5}
 							>{$players[id].tempLifeDiff < 0 ? `-${$players[id].tempLifeDiff * -1}` : ''}</span
 						>
 						<span
 							class="text-black text-6xl flex items-center text-center"
-							class:-rotate-180={orientation === 'left'}>{$players[id].lifeTotal}</span
+							class:-rotate-180={orientation === 'left'}
+							class:text-5xl={$appSettings.playerCount >= 5}>{$players[id].lifeTotal}</span
 						>
-						<span class="h-16 text-center" class:rotate-180={orientation === 'left'}
+						<span
+							class="h-16 text-center"
+							class:rotate-180={orientation === 'left'}
+							class:h-8={$appSettings.playerCount >= 5}
 							>{$players[id].tempLifeDiff > 0 ? `+${$players[id].tempLifeDiff}` : ''}</span
 						>
 					</div>

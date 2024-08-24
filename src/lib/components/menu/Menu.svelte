@@ -1,36 +1,42 @@
 <script>
+	import Dsix from '$lib/assets/icons/Dsix.svelte';
+	import ManaPentagon from '$lib/assets/icons/ManaPentagon.svelte';
 	import Reset from '$lib/assets/icons/Reset.svelte';
-	import { appState } from '$lib/store/app';
+	import { appSettings, appState, toggleIsMenuOpen } from '$lib/store/app';
 	import { resetLifeTotals } from '$lib/store/player';
+	import CircularButton from './subcomponents/circularButton/CircularButton.svelte';
 	import Randomizer from './subcomponents/randomizer/Randomizer.svelte';
 	import Resources from './subcomponents/resources/Resources.svelte';
 	import Settings from './subcomponents/settings/Settings.svelte';
 </script>
 
-<div
-	class="flex justify-around py-1.5 items-center"
-	class:h-14={!$appState.isMenuOpen}
->
-	{#if !$appState.isMenuOpen}
+{#if !$appState.isMenuOpen}
+	<div class="flex justify-around py-1.5 items-center" class:h-14={!$appState.isMenuOpen}>
 		<div class="flex justify-center items-center flex-grow">
 			<button on:click={resetLifeTotals} class="h-10 w-10"><Reset /></button>
 		</div>
-	{/if}
-	{#if !$appState.isMenuOpen || $appState.activeMenu === 'settings'}
 		<div class="flex justify-center items-center flex-grow">
-			<Settings on:resetLifeTotals />
+			<CircularButton
+				on:click={() => toggleIsMenuOpen('settings')}
+				number={$appSettings.playerCount}
+				highlight
+			/>
 		</div>
-	{/if}
-
-	{#if !$appState.isMenuOpen || $appState.activeMenu === 'resources'}
 		<div class="flex justify-center items-center flex-grow">
-			<Resources />
+			<button on:click={() => toggleIsMenuOpen('resources')}>
+				<ManaPentagon />
+			</button>
 		</div>
-	{/if}
-
-	{#if !$appState.isMenuOpen || $appState.activeMenu === 'randomizer'}
 		<div class="flex justify-center items-center flex-grow">
-			<Randomizer />
+			<button on:click={() => toggleIsMenuOpen('randomizer')}>
+				<Dsix />
+			</button>
 		</div>
-	{/if}
-</div>
+	</div>
+{:else if $appState.activeMenu === 'settings'}
+	<Settings on:resetLifeTotals />
+{:else if $appState.activeMenu === 'resources'}
+	<Resources />
+{:else if $appState.activeMenu === 'randomizer'}
+	<Randomizer />
+{/if}

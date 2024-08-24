@@ -68,79 +68,71 @@
 
 <svelte:window bind:innerHeight />
 
-{#if $appState.isMenuOpen}
-	<div class="w-full overflow-scroll scrollbar-hidden"  style="max-height: {innerHeight - 80}px;">
-		<div
-			class="w-full text-center flex px-4 flex-col justify-between items-center my-4 py-2 sticky top-[-1px] bg-black"
+<div class="w-full overflow-scroll scrollbar-hidden" style="max-height: {innerHeight - 80}px;">
+	<div
+		class="w-full text-center flex px-4 flex-col justify-between items-center my-4 py-2 sticky top-[-1px] bg-black"
+	>
+		<button on:click={() => toggleIsMenuOpen('')} class="text-white absolute left-0 pl-4"
+			><Arrow /></button
 		>
-			<button on:click={() => toggleIsMenuOpen('')} class="text-white absolute left-0 pl-4"
-				><Arrow /></button
-			>
-			<span class="text-gray-400 text-center">Settings</span>
+		<span class="text-gray-400 text-center">Settings</span>
+	</div>
+
+	<div class="w-full text-center text-white mt-4 flex flex-col items-center">
+		<!-- Player Count -->
+		<div class="w-3/4">
+			<div><span>Players</span></div>
+			<div class="flex flex-row justify-between mt-3">
+				{#each [2, 3, 4, 5, 6] as playerCount}
+					{#key $appSettings.playerCount}
+						<div>
+							<CircularButton
+								on:click={() => setNewPlayerCount(playerCount)}
+								number={playerCount}
+								highlight={$appSettings.playerCount === playerCount}
+							/>
+						</div>
+					{/key}
+				{/each}
+			</div>
 		</div>
 
-		<div class="w-full text-center text-white mt-4 flex flex-col items-center">
-			<!-- Player Count -->
-			<div class="w-3/4">
-				<div><span>Players</span></div>
-				<div class="flex flex-row justify-between mt-3">
-					{#each [2, 3, 4, 5, 6] as playerCount}
-						{#key $appSettings.playerCount}
+		<!-- Starting Life Total -->
+		<div class="mt-6 w-3/4">
+			<div><span>Starting Life</span></div>
+			<div class="flex flex-row justify-between mt-3">
+				{#each [20, 25, 30, 40, 'custom'] as lifeTotal}
+					{#key $appSettings.startingLifeTotal}
+						{#if typeof lifeTotal === 'number'}
 							<div>
 								<CircularButton
-									on:click={() => setNewPlayerCount(playerCount)}
-									number={playerCount}
-									highlight={$appSettings.playerCount === playerCount}
+									on:click={() => setLifeTotal(lifeTotal)}
+									number={lifeTotal}
+									highlight={lifeTotal === 60
+										? isCustomStartingLife()
+										: $appSettings.startingLifeTotal === lifeTotal}
 								/>
 							</div>
-						{/key}
-					{/each}
-				</div>
-			</div>
-
-			<!-- Starting Life Total -->
-			<div class="mt-6 w-3/4">
-				<div><span>Starting Life</span></div>
-				<div class="flex flex-row justify-between mt-3">
-					{#each [20, 25, 30, 40, 'custom'] as lifeTotal}
-						{#key $appSettings.startingLifeTotal}
-							{#if typeof lifeTotal === 'number'}
-								<div>
-									<CircularButton
-										on:click={() => setLifeTotal(lifeTotal)}
-										number={lifeTotal}
-										highlight={lifeTotal === 60
-											? isCustomStartingLife()
-											: $appSettings.startingLifeTotal === lifeTotal}
+						{:else}
+							<div>
+								<CircularButton
+									number={$appSettings.customStartingLifeTotal}
+									customText
+									highlight={isCustomStartingLife()}
+								>
+									<input
+										bind:value={$appSettings.customStartingLifeTotal}
+										on:keypress={handleCustomLifeTotalKeyPress}
+										type="number"
+										class="bg-transparent w-8 h-8 overflow-hidden rounded-full text-center outline-none"
+										max="999"
 									/>
-								</div>
-							{:else}
-								<div>
-									<CircularButton
-										number={$appSettings.customStartingLifeTotal}
-										customText
-										highlight={isCustomStartingLife()}
-									>
-										<input
-											bind:value={$appSettings.customStartingLifeTotal}
-											on:keypress={handleCustomLifeTotalKeyPress}
-											type="number"
-											class="bg-transparent w-8 h-8 overflow-hidden rounded-full text-center outline-none"
-											max="999"
-										/>
-									</CircularButton>
-								</div>
-							{/if}
-						{/key}
-					{/each}
-				</div>
+								</CircularButton>
+							</div>
+						{/if}
+					{/key}
+				{/each}
 			</div>
 		</div>
 	</div>
-{:else}
-	<CircularButton
-		on:click={() => toggleIsMenuOpen('settings')}
-		number={$appSettings.playerCount}
-		highlight
-	/>
-{/if}
+</div>
