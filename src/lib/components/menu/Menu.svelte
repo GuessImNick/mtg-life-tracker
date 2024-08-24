@@ -4,33 +4,10 @@
 	import Reset from '$lib/assets/icons/Reset.svelte';
 	import { appSettings, appState, toggleIsMenuOpen } from '$lib/store/app';
 	import { resetLifeTotals } from '$lib/store/player';
-	import { onMount } from 'svelte';
 	import CircularButton from './subcomponents/circularButton/CircularButton.svelte';
 	import Randomizer from './subcomponents/randomizer/Randomizer.svelte';
 	import Resources from './subcomponents/resources/Resources.svelte';
 	import Settings from './subcomponents/settings/Settings.svelte';
-	import { optimize } from '$lib/utils';
-
-	const preloadImages = () => {
-		const images = [
-			'/white-mana-symbol.webp',
-			'/blue-mana-symbol.webp',
-			'/black-mana-symbol.webp',
-			'/red-mana-symbol.webp',
-			'/green-mana-symbol.webp',
-			'/waste-mana-symbol.webp',
-			'/storm-counter-symbol.webp'
-		];
-
-		images.forEach((image) => {
-			const img = new Image();
-			img.src = optimize(image);
-		});
-	};
-
-	onMount(() => {
-		preloadImages();
-	});
 </script>
 
 {#if !$appState.isMenuOpen}
