@@ -27,9 +27,12 @@
 			small><Minus light size="1rem" /></CircularButton
 		>
 	</div>
-	<div class="h-16 w-16 flex flex-row items-center justify-center flex-grow">
-		<img src={images[type]} alt="mana symbol" class="h-16 w-16" /><span class="ml-4 text-2xl text-center w-2"
-			>{$resourceCounter[type]}</span
+	<div
+		class="h-16 w-16 flex flex-row items-center justify-center flex-grow"
+		class:brightness-[25%]={$resourceCounter[type] === 0}
+	>
+		<img src={images[type]} alt="mana symbol" class="h-16 w-16" /><span
+			class="ml-4 text-2xl text-center w-2">{$resourceCounter[type]}</span
 		>
 	</div>
 	<div>
