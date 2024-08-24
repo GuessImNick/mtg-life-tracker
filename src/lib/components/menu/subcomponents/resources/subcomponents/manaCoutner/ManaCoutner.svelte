@@ -8,13 +8,13 @@
 	export let type: App.Resources.Resource;
 
 	const images: { [key in App.Resources.Resource]: string } = {
-		white: '/white-mana.webp',
-		blue: '/blue-mana.webp',
-		black: '/black-mana.webp',
-		red: '/red-mana.webp',
-		green: '/green-mana.webp',
-		waste: '/waste-mana.webp',
-		storm: '/storm-counter.webp'
+		white: '/white-mana-symbol.webp',
+		blue: '/blue-mana-symbol.webp',
+		black: '/black-mana-symbol.webp',
+		red: '/red-mana-symbol.webp',
+		green: '/green-mana-symbol.webp',
+		waste: '/waste-mana-symbol.webp',
+		storm: '/storm-counter-symbol.webp'
 	};
 </script>
 
