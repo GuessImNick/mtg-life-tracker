@@ -115,7 +115,7 @@
 						on:touchend={() => handleTouchEnd('subtract')}
 						class="w-full h-1/2 flex justify-center {orientation === 'left'
 							? 'items-end rounded-b-3xl'
-							: 'items-start rounded-t-3xl'} active:bg-player-light"
+							: 'items-start rounded-t-3xl'} active:bg-player-light select-none"
 					>
 						<div class="rotate-90"><Minus /></div>
 					</button>
@@ -126,7 +126,7 @@
 						on:touchend={() => handleTouchEnd('add')}
 						class="w-full h-1/2 flex justify-center {orientation === 'left'
 							? 'items-start rounded-t-3xl'
-							: 'items-end rounded-b-3xl'} active:bg-player-light"
+							: 'items-end rounded-b-3xl'} active:bg-player-light select-none"
 					>
 						<Plus />
 					</button>
@@ -184,7 +184,7 @@
 					on:mouseup={() => handleMouseUp('subtract')}
 					on:touchstart={() => handleTouchStart('subtract')}
 					on:touchend={() => handleTouchEnd('subtract')}
-					class="w-1/2 flex justify-start items-center active:bg-player-light rounded-l-3xl"
+					class="w-1/2 flex justify-start items-center active:bg-player-light rounded-l-3xl select-none"
 				>
 					<Minus />
 				</button>
@@ -193,7 +193,7 @@
 					on:mouseup={() => handleMouseUp('add')}
 					on:touchstart={() => handleTouchStart('add')}
 					on:touchend={() => handleTouchEnd('add')}
-					class="w-1/2 flex justify-end items-center active:bg-player-light rounded-r-3xl"
+					class="w-1/2 flex justify-end items-center active:bg-player-light rounded-r-3xl select-none"
 				>
 					<Plus />
 				</button>
