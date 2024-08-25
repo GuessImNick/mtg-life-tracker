@@ -7,12 +7,28 @@
 	import Dtwelve from '$lib/assets/icons/Dtwelve.svelte';
 	import Dtwenty from '$lib/assets/icons/Dtwenty.svelte';
 	import Dtwo from '$lib/assets/icons/Dtwo.svelte';
-	import { appSettings } from '$lib/store/appSettings';
+	import { appSettings, setCustomRandomNumber } from '$lib/store/appSettings';
 	import { toggleIsMenuOpen } from '$lib/store/appState';
 	import { generateRandomNumber } from '$lib/store/modal';
 	import DiceCard from './subcomponents/diceCard/RandomizerButton.svelte';
 
 	$: innerHeight = 0;
+
+	const handleCustomRandomizerKeyPress = (event: KeyboardEvent) => {
+		const { key } = event;
+
+		const allowedKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Enter'];
+
+		if (!allowedKeys.includes(key) && !/^\d$/.test(key)) {
+			event.preventDefault();
+		}
+
+		if ($appSettings.customRandomNumber < 0) {
+			setCustomRandomNumber(0);
+		} else if ($appSettings.customRandomNumber > 999) {
+			setCustomRandomNumber(999);
+		}
+	};
 </script>
 
 <svelte:window bind:innerHeight />
@@ -46,7 +62,24 @@
 						on:click={() => {
 							generateRandomNumber('custom');
 						}}
-						text="Custom">Custom</DiceCard
+						text="Custom"
+						><div class="px-2 rounded flex flex-col">
+							<div class="relative">
+								<input
+									on:click|stopPropagation
+									bind:value={$appSettings.customRandomNumber}
+									type="number"
+									name="customNumber"
+									id="customNumber"
+									class="w-full bg-black rounded-xl grow h-[36px] text-right px-2 text-white text-lg"
+									on:keyup={(e) => handleCustomRandomizerKeyPress(e)}
+									max="999"
+									min="0"
+								/>
+								<p class="absolute top-2 left-2 text-white text-sm">Set</p>
+							</div>
+							<div class="text-white text-xl mb-2 mt-2">Roll</div>
+						</div></DiceCard
 					>
 				</div>
 				<div class="col-span-2">

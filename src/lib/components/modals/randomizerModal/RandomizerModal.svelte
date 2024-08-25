@@ -7,6 +7,7 @@
 	import Dtwenty from '$lib/assets/icons/Dtwenty.svelte';
 	import Dtwo from '$lib/assets/icons/Dtwo.svelte';
 	import { resetRandomizer, randomizerModalData } from '$lib/store/modal';
+    import {appSettings} from '$lib/store/appSettings'
 </script>
 
 <div
@@ -24,7 +25,7 @@
 		tabindex="0"
 	>
 		<div class="flex flex-col justify-center items-center">
-			<div class="h-[49px] mb-1">
+			<div class="h-[49px] mb-2">
 				{#if $randomizerModalData.type === 'd2'}
 					<Dtwo />
 				{:else if $randomizerModalData.type === 'd4'}
@@ -40,7 +41,7 @@
 				{:else if $randomizerModalData.type === 'd20'}
 					<Dtwenty />
 				{:else if $randomizerModalData.type === 'custom'}
-					p
+					{$appSettings.customRandomNumber}-sided die
 				{/if}
 			</div>
 			<div><p class="text-white text-6xl">{$randomizerModalData.result}</p></div>

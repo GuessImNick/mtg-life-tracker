@@ -1,10 +1,11 @@
-import { writable } from 'svelte/store';
+import { get, writable } from 'svelte/store';
+import { appSettings } from './appSettings';
 
 const initialRandomizerModalState = { isOpen: false, result: 0, type: '' };
 
 export const randomizerModalData = writable(initialRandomizerModalState);
 
-export const generateRandomNumber = (type: string, amount: number | null = null) => {
+export const generateRandomNumber = (type: string) => {
 	const dieTypes: { [key: string]: number | null } = {
 		d2: 2,
 		d4: 4,
@@ -13,7 +14,7 @@ export const generateRandomNumber = (type: string, amount: number | null = null)
 		d10: 10,
 		d12: 12,
 		d20: 20,
-		custom: amount
+		custom: get(appSettings).customRandomNumber
 	};
 
 	const max = dieTypes[type] || 0;
