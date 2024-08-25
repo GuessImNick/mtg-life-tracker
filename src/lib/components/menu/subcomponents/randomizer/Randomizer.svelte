@@ -71,7 +71,8 @@
 									type="number"
 									name="customNumber"
 									id="customNumber"
-									class="w-20 bg-black rounded-xl grow h-[36px] text-right px-2 text-white text-lg"
+									autocomplete="off"
+									class="w-20 bg-black rounded-xl grow h-[36px] text-right px-2 text-white text-lg outline-none"
 									on:keyup={(e) => handleCustomRandomizerKeyPress(e)}
 									max="999"
 									min="0"

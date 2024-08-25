@@ -41,7 +41,7 @@
 				{:else if $randomizerModalData.type === 'd20'}
 					<Dtwenty />
 				{:else if $randomizerModalData.type === 'custom'}
-					{$appSettings.customRandomNumber}-sided die
+					{$appSettings.customRandomNumber || 0}-sided die
 				{/if}
 			</div>
 			<div><p class="text-white text-6xl">{$randomizerModalData.result}</p></div>
