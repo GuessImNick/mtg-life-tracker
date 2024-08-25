@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Minus from '$lib/assets/icons/Minus.svelte';
 	import Plus from '$lib/assets/icons/Plus.svelte';
-	import { resourceCounter, setResource } from '$lib/store/appSettings';
+	import { resourceCounter, setResource } from '$lib/store/resources';
 	import { optimize } from '$lib/utils';
 	import CircularButton from '../../../../../shared/circularButton/CircularButton.svelte';
 

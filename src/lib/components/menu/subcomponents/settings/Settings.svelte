@@ -1,12 +1,11 @@
 <script lang="ts">
 	import {
 		appSettings,
-		appState,
 		setCustomStartingLifeTotal,
 		setPlayerCount,
-		setStartingLifeTotal,
-		toggleIsMenuOpen
+		setStartingLifeTotal
 	} from '$lib/store/appSettings';
+	import { toggleIsMenuOpen } from '$lib/store/appState';
 	import CircularButton from '../../../shared/circularButton/CircularButton.svelte';
 	import Arrow from '$lib/assets/icons/Arrow.svelte';
 	import { resetLifeTotals } from '$lib/store/player';

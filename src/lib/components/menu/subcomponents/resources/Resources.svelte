@@ -1,8 +1,9 @@
 <script>
 	import Arrow from '$lib/assets/icons/Arrow.svelte';
-	import ManaPentagon from '$lib/assets/icons/ManaPentagon.svelte';
 	import Button from '$lib/components/shared/button/Button.svelte';
-	import { appState, toggleIsMenuOpen, resetResources, appSettings } from '$lib/store/appSettings';
+	import { appSettings } from '$lib/store/appSettings';
+	import { toggleIsMenuOpen } from '$lib/store/appState';
+	import { resetResources } from '$lib/store/resources';
 	import ManaCoutner from './subcomponents/manaCoutner/ManaCoutner.svelte';
 
 	$: innerHeight = 0;

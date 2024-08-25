@@ -1,8 +1,7 @@
 <script lang="ts">
 	import Menu from '../components/menu/Menu.svelte';
 	import Player from '../components/player/Player.svelte';
-	import { appState } from '../store/appSettings';
-	import { players } from '$lib/store/player';
+	import { appState } from '$lib/store/appState';
 </script>
 
 <div class="flex flex-col h-full justify-between">

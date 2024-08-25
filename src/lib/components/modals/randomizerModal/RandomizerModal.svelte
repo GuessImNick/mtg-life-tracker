@@ -24,7 +24,7 @@
 		tabindex="0"
 	>
 		<div class="flex flex-col justify-center items-center">
-			<div class="h-[49px]">
+			<div class="h-[49px] mb-1">
 				{#if $randomizerModalData.type === 'd2'}
 					<Dtwo />
 				{:else if $randomizerModalData.type === 'd4'}
