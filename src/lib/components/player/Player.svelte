@@ -3,6 +3,7 @@
 	import Plus from '$lib/assets/icons/Plus.svelte';
 	import { appSettings } from '$lib/store/appSettings';
 	import { appState } from '$lib/store/appState';
+	import { openPlayerModal } from '$lib/store/modal';
 	import { players, setTempLifeDiff } from '$lib/store/player';
 
 	export let orientation: App.Player.Orientation = 'up';
@@ -98,9 +99,6 @@
 				break;
 		}
 	};
-
-	const setLifeTotalDiff = () => {};
-	const onNameClick = () => {};
 </script>
 
 <svelte:window bind:innerWidth />
@@ -117,7 +115,7 @@
 						on:touchend={() => handleTouchEnd('subtract')}
 						class="w-full h-1/2 flex justify-center {orientation === 'left'
 							? 'items-end rounded-b-3xl'
-							: 'items-start rounded-t-3xl'} active:bg-player-light select-none"
+							: 'items-start rounded-t-3xl'} active:bg-player-light"
 					>
 						<div class="rotate-90"><Minus /></div>
 					</button>
@@ -128,7 +126,7 @@
 						on:touchend={() => handleTouchEnd('add')}
 						class="w-full h-1/2 flex justify-center {orientation === 'left'
 							? 'items-start rounded-t-3xl'
-							: 'items-end rounded-b-3xl'} active:bg-player-light select-none"
+							: 'items-end rounded-b-3xl'} active:bg-player-light"
 					>
 						<Plus />
 					</button>
@@ -140,7 +138,7 @@
 				>
 					<div class="grow w-1/3 text-center flex justify-center items-center">
 						<button
-							on:click={onNameClick}
+							on:click={() => openPlayerModal(id + 1)}
 							class="bg-[#dfeaf2]/80 py-2 px-3 rounded-lg mt-1 text-lg pointer-events-auto whitespace-nowrap vert"
 							class:rotate-180={orientation === 'left'}>{$players[id].playerName}</button
 						>
@@ -204,7 +202,7 @@
 				>
 					<div class="grow h-1/3 text-center">
 						<button
-							on:click={onNameClick}
+							on:click={() => openPlayerModal(id + 1)}
 							class="bg-[#dfeaf2]/80 py-2 px-3 rounded-lg mt-1 text-xl pointer-events-auto"
 							>{$players[id].playerName}</button
 						>

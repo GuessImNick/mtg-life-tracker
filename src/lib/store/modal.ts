@@ -27,3 +27,15 @@ export const generateRandomNumber = (type: string) => {
 export const resetRandomizer = () => {
 	randomizerModalData.set(initialRandomizerModalState);
 };
+
+const initialPlayerModalData = { isOpen: false, playerId: 0 };
+
+export const playerModalData = writable(initialPlayerModalData);
+
+export const openPlayerModal = (playerId: number) => {
+	playerModalData.set({ isOpen: true, playerId });
+};
+
+export const resetPlayerModalData = () => {
+	playerModalData.set(initialPlayerModalData);
+};
