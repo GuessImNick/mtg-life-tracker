@@ -4,9 +4,15 @@
 	import { playerModalData, resetPlayerModalData } from '$lib/store/modal';
 	import { players } from '$lib/store/player';
 
-	const handleOnKeyDown = (event: KeyboardEvent) => {
+	const handleOnKeyPress = (event: KeyboardEvent) => {
 		if (event.key === 'Enter') {
 			resetPlayerModalData();
+		}
+
+		if ($players[$playerModalData.playerId - 1].playerName.length >= 20) {
+			$players[$playerModalData.playerId - 1].playerName = $players[
+				$playerModalData.playerId - 1
+			].playerName.slice(0, 19);
 		}
 	};
 </script>
@@ -37,7 +43,7 @@
 						type="text"
 						class="py-2 px-3 rounded-lg outline outline-1 outline-black text-black font-semibold bg-[#f1f6fe]"
 						bind:value={$players[$playerModalData.playerId - 1].playerName}
-                        on:keydown={handleOnKeyDown}
+						on:keypress={handleOnKeyPress}
 					/>
 					<div class="absolute right-3 top-2 pointer-events-none"><Pen /></div>
 				</div>
