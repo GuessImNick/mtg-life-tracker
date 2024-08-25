@@ -1,9 +1,9 @@
 <script lang="ts">
 	import Minus from '$lib/assets/icons/Minus.svelte';
 	import Plus from '$lib/assets/icons/Plus.svelte';
-	import { resourceCounter, setResource } from '$lib/store/app';
+	import { resourceCounter, setResource } from '$lib/store/appSettings';
 	import { optimize } from '$lib/utils';
-	import CircularButton from '../../../circularButton/CircularButton.svelte';
+	import CircularButton from '../../../../../shared/circularButton/CircularButton.svelte';
 
 	export let type: App.Resources.Resource;
 

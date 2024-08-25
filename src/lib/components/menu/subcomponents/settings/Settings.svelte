@@ -6,8 +6,8 @@
 		setPlayerCount,
 		setStartingLifeTotal,
 		toggleIsMenuOpen
-	} from '$lib/store/app';
-	import CircularButton from '../circularButton/CircularButton.svelte';
+	} from '$lib/store/appSettings';
+	import CircularButton from '../../../shared/circularButton/CircularButton.svelte';
 	import Arrow from '$lib/assets/icons/Arrow.svelte';
 	import { resetLifeTotals } from '$lib/store/player';
 
@@ -68,7 +68,7 @@
 
 <svelte:window bind:innerHeight />
 
-<div class="w-full overflow-scroll scrollbar-hidden" style="max-height: {innerHeight - 80}px;">
+<div class="w-full overflow-scroll scrollbar-hidden h-full" style="max-height: {innerHeight - 80}px;">
 	<div
 		class="w-full text-center flex px-4 flex-col justify-between items-center my-4 py-2 sticky top-[-1px] bg-black"
 	>

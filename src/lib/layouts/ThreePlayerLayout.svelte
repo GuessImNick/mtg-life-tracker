@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Menu from '../components/menu/Menu.svelte';
 	import Player from '../components/player/Player.svelte';
-	import { appState } from '../store/app';
+	import { appState } from '../store/appSettings';
 	import { players } from '$lib/store/player';
 </script>
 

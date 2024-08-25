@@ -2,9 +2,9 @@
 	import Dsix from '$lib/assets/icons/Dsix.svelte';
 	import ManaPentagon from '$lib/assets/icons/ManaPentagon.svelte';
 	import Reset from '$lib/assets/icons/Reset.svelte';
-	import { appSettings, appState, toggleIsMenuOpen } from '$lib/store/app';
+	import { appSettings, appState, toggleIsMenuOpen } from '$lib/store/appSettings';
 	import { resetLifeTotals } from '$lib/store/player';
-	import CircularButton from './subcomponents/circularButton/CircularButton.svelte';
+	import CircularButton from '../shared/circularButton/CircularButton.svelte';
 	import Randomizer from './subcomponents/randomizer/Randomizer.svelte';
 	import Resources from './subcomponents/resources/Resources.svelte';
 	import Settings from './subcomponents/settings/Settings.svelte';

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Minus from '$lib/assets/icons/Minus.svelte';
 	import Plus from '$lib/assets/icons/Plus.svelte';
-	import { appState, appSettings } from '$lib/store/app';
+	import { appState, appSettings } from '$lib/store/appSettings';
 	import { players, setTempLifeDiff } from '$lib/store/player';
 
 	export let orientation: App.Player.Orientation = 'up';

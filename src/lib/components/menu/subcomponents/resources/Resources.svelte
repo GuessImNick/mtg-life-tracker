@@ -1,7 +1,8 @@
 <script>
 	import Arrow from '$lib/assets/icons/Arrow.svelte';
 	import ManaPentagon from '$lib/assets/icons/ManaPentagon.svelte';
-	import { appState, toggleIsMenuOpen, resetResources, appSettings } from '$lib/store/app';
+	import Button from '$lib/components/shared/button/Button.svelte';
+	import { appState, toggleIsMenuOpen, resetResources, appSettings } from '$lib/store/appSettings';
 	import ManaCoutner from './subcomponents/manaCoutner/ManaCoutner.svelte';
 
 	$: innerHeight = 0;
@@ -10,7 +11,7 @@
 <svelte:window bind:innerHeight />
 
 <div
-	class="w-full overflow-scroll scrollbar-hidden"
+	class="w-full overflow-scroll scrollbar-hidden h-full"
 	style="max-height: {innerHeight - ($appSettings.playerCount >= 5 ? 110 : 80)}px;"
 >
 	<div class="flex flex-col">
@@ -45,14 +46,8 @@
 				</div>
 			</div>
 			<div class="flex justify-center gap-2 py-2">
-				<button
-					on:click={() => toggleIsMenuOpen('')}
-					class="border rounded-md bg-[#2d2f30] px-2 w-20">close</button
-				>
-				<button
-					on:click={resetResources}
-					class="border rounded-md bg-[#2d2f30] border-red-500 px-2 w-20">clear</button
-				>
+				<Button on:click={() => toggleIsMenuOpen('')}>close</Button>
+				<Button on:click={resetResources} type="dark">clear</Button>
 			</div>
 		</div>
 	</div>

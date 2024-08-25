@@ -1,5 +1,5 @@
 import { get, writable, type Writable } from 'svelte/store';
-import { appSettings } from './app';
+import { appSettings } from './appSettings';
 
 export const players: Writable<App.Player.Data[]> = writable([
 	{
