@@ -1,7 +1,8 @@
 <script lang="ts">
 	import Menu from '../components/menu/Menu.svelte';
-	import Player from '../components/player/Player.svelte';
 	import { appState } from '$lib/store/appState';
+	import PlayerVertical from '$lib/components/player/PlayerVertical.svelte';
+	import PlayerHorizontal from '$lib/components/player/PlayerHorizontal.svelte';
 </script>
 
 <div class="flex flex-col h-full justify-between">
@@ -10,10 +11,10 @@
 		class:h-[60%]={!$appState.isMenuOpen}
 	>
 		<div class="w-1/2">
-			<Player orientation="right" id={1} />
+			<PlayerHorizontal orientation="right" id={1} />
 		</div>
 		<div class="w-1/2">
-			<Player orientation="left" id={2} />
+			<PlayerHorizontal orientation="left" id={2} />
 		</div>
 	</div>
 	<div class="flex-grow">
@@ -24,6 +25,6 @@
 		class:h-[40%]={!$appState.isMenuOpen}
 		class:pt-2={$appState.isMenuOpen}
 	>
-		<Player orientation={'up'} id={0} />
+		<PlayerVertical orientation={'up'} id={0} />
 	</div>
 </div>

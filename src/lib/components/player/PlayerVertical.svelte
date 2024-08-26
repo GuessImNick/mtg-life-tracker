@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Minus from '$lib/assets/icons/Minus.svelte';
 	import Plus from '$lib/assets/icons/Plus.svelte';
-	import { appSettings } from '$lib/store/appSettings';
 	import { appState } from '$lib/store/appState';
 	import { openPlayerModal } from '$lib/store/modal';
 	import { players, setTempLifeDiff } from '$lib/store/player';
@@ -103,76 +102,7 @@
 
 <svelte:window bind:innerWidth />
 
-{#if orientation === 'left' || orientation === 'right'}
-	<div class="bg-player flex w-full rounded-3xl flex-grow h-6" class:h-full={!$appState.isMenuOpen}>
-		{#if !$appState.isMenuOpen}
-			<div class="flex flex-col w-full relative">
-				<div class="h-full flex flex-col" class:flex-col-reverse={orientation === 'left'}>
-					<button
-						on:mousedown={() => handleMouseDown('subtract')}
-						on:mouseup={() => handleMouseUp('subtract')}
-						on:touchstart={() => handleTouchStart('subtract')}
-						on:touchend={() => handleTouchEnd('subtract')}
-						class="w-full h-1/2 flex justify-center {orientation === 'left'
-							? 'items-end rounded-b-3xl'
-							: 'items-start rounded-t-3xl'} active:bg-player-light select-none"
-					>
-						<div class="rotate-90"><Minus /></div>
-					</button>
-					<button
-						on:mousedown={() => handleMouseDown('add')}
-						on:mouseup={() => handleMouseUp('add')}
-						on:touchstart={() => handleTouchStart('add')}
-						on:touchend={() => handleTouchEnd('add')}
-						class="w-full h-1/2 flex justify-center {orientation === 'left'
-							? 'items-start rounded-t-3xl'
-							: 'items-end rounded-b-3xl'} active:bg-player-light select-none"
-					>
-						<Plus />
-					</button>
-				</div>
-				<div
-					class="absolute h-full w-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer pointer-events-none flex items-center"
-					class:flex-row={orientation === 'left'}
-					class:flex-row-reverse={orientation === 'right'}
-				>
-					<div class="grow w-1/3 text-center flex justify-center items-center">
-						<button
-							on:click={() => openPlayerModal(id + 1)}
-							class="bg-[#dfeaf2]/80 py-2 px-3 rounded-lg mt-1 text-lg pointer-events-auto whitespace-nowrap vert"
-							class:rotate-180={orientation === 'left'}>{$players[id].playerName}</button
-						>
-					</div>
-					<div
-						class="w-1/3 flex justify-center items-center vert"
-						class:flex-row-reverse={orientation === 'left'}
-					>
-						<span
-							class="h-16 text-center"
-							class:rotate-180={orientation === 'left'}
-							class:h-8={$appSettings.playerCount >= 5}
-							>{$players[id].tempLifeDiff < 0 ? `-${$players[id].tempLifeDiff * -1}` : ''}</span
-						>
-						<span
-							class="text-black text-6xl flex items-center text-center"
-							class:-rotate-180={orientation === 'left'}
-							class:text-5xl={$appSettings.playerCount >= 5}>{$players[id].lifeTotal}</span
-						>
-						<span
-							class="h-16 text-center"
-							class:rotate-180={orientation === 'left'}
-							class:h-8={$appSettings.playerCount >= 5}
-							>{$players[id].tempLifeDiff > 0 ? `+${$players[id].tempLifeDiff}` : ''}</span
-						>
-					</div>
-
-					<div class="grow w-1/3 vert"></div>
-				</div>
-			</div>
-		{/if}
-	</div>
-{:else if orientation === 'up' || orientation === 'down'}
-	<div
+<div
 		class="bg-player flex w-full rounded-3xl flex-grow h-6"
 		class:h-full={!$appState.isMenuOpen}
 		class:rotate-180={orientation === 'down'}
@@ -221,10 +151,3 @@
 			</div>
 		{/if}
 	</div>
-{/if}
-
-<style>
-	.vert {
-		writing-mode: vertical-rl;
-	}
-</style>
