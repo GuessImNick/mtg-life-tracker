@@ -92,6 +92,43 @@ export const setPlayerLifeTotal = (playerId: number, amount: number) => {
 	});
 };
 
+export const manageLifeTotal = (
+	type: App.Player.LifeMoveType,
+	playerId: number,
+	amount: number = 1
+) => {
+	removeFirstPlace();
+	players.update((currentPlayers) => {
+		return currentPlayers.map((player) => {
+			if (player.id === playerId) {
+				let newLifeTotal = player.lifeTotal;
+
+				if (type === 'add') {
+					newLifeTotal += amount;
+					if (newLifeTotal < 999) {
+						setTempLifeDiff(playerId, type, amount);
+					}
+				} else if (type === 'subtract') {
+					newLifeTotal -= amount;
+					if (newLifeTotal > 0) {
+						setTempLifeDiff(playerId, type, amount);
+					}
+				}
+
+				// Ensure the life total is within acceptable bounds
+				if (newLifeTotal < 0) newLifeTotal = 0;
+				if (newLifeTotal > 999) newLifeTotal = 999;
+
+				return {
+					...player,
+					lifeTotal: newLifeTotal
+				};
+			}
+			return player;
+		});
+	});
+};
+
 export const setPlayerName = (playerId: number, playerName: string) => {
 	players.update((currentPlayers) => {
 		return currentPlayers.map((player) => {
@@ -111,7 +148,6 @@ export const setTempLifeDiff = (
 	type: App.Player.LifeMoveType,
 	amount: number
 ) => {
-	removeFirstPlace();
 	players.update((currentPlayers) => {
 		return currentPlayers.map((player) => {
 			if (player.id === playerId) {

@@ -4,7 +4,7 @@
 	import Plus from '$lib/assets/icons/Plus.svelte';
 	import { appState } from '$lib/store/appState';
 	import { openPlayerModal } from '$lib/store/modal';
-	import { players, setTempLifeDiff } from '$lib/store/player';
+	import { manageLifeTotal, players } from '$lib/store/player';
 
 	export let orientation: App.Player.Orientation = 'up';
 	export let id: number;
@@ -16,32 +16,15 @@
 	$: innerWidth = 0;
 	$: isMobile = innerWidth < 640;
 
-	const manageLifeTotal = (type: App.Player.LifeMoveType, amount: number = 1) => {
-		switch (type) {
-			case 'add':
-				$players[id].lifeTotal += amount;
-				setTempLifeDiff(id + 1, type, amount);
-				break;
-			case 'subtract':
-				$players[id].lifeTotal -= amount;
-				setTempLifeDiff(id + 1, type, amount);
-				break;
-
-			default:
-				break;
-		}
-		lifeTotalStabalizer();
-	};
-
 	const handleMouseDown = (type: App.Player.LifeMoveType) => {
 		if (!isMobile) {
 			isHolding = true;
 
 			timeout = setTimeout(() => {
-				manageLifeTotal(type, 10);
+				manageLifeTotal(type, id + 1, 10);
 				if (isHolding) {
 					interval = setInterval(() => {
-						manageLifeTotal(type, 10);
+						manageLifeTotal(type, id + 1, 10);
 					}, 1000);
 				}
 			}, 1000);
@@ -54,7 +37,7 @@
 				clearInterval(interval);
 				interval = 0;
 			} else {
-				manageLifeTotal(type);
+				manageLifeTotal(type, id + 1);
 			}
 			clearTimeout(timeout);
 			timeout = 0;
@@ -66,10 +49,10 @@
 		isHolding = true;
 
 		timeout = setTimeout(() => {
-			manageLifeTotal(type, 10);
+			manageLifeTotal(type, id + 1, 10);
 			if (isHolding) {
 				interval = setInterval(() => {
-					manageLifeTotal(type, 10);
+					manageLifeTotal(type, id + 1, 10);
 				}, 1000);
 			}
 		}, 1000);
@@ -80,24 +63,11 @@
 			clearInterval(interval);
 			interval = 0;
 		} else {
-			manageLifeTotal(type);
+			manageLifeTotal(type, id + 1);
 		}
 		clearTimeout(timeout);
 		timeout = 0;
 		isHolding = false;
-	};
-
-	const lifeTotalStabalizer = () => {
-		switch (true) {
-			case $players[id].lifeTotal <= 0:
-				$players[id].lifeTotal = 0;
-				break;
-			case $players[id].lifeTotal >= 999:
-				$players[id].lifeTotal = 999;
-				break;
-			default:
-				break;
-		}
 	};
 </script>
 
