@@ -14,6 +14,8 @@ declare global {
 				lifeTotal: number;
 				playerName: string;
 				tempLifeDiff: number;
+				highlighted: boolean;
+				isFirst: boolean;
 			};
 		}
 		namespace Resources {

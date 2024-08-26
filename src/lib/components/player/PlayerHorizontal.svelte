@@ -1,4 +1,5 @@
 <script lang="ts">
+	import FirstPlace from '$lib/assets/icons/FirstPlace.svelte';
 	import Minus from '$lib/assets/icons/Minus.svelte';
 	import Plus from '$lib/assets/icons/Plus.svelte';
 	import { appSettings } from '$lib/store/appSettings';
@@ -12,7 +13,6 @@
 	let interval: number;
 	let timeout: number;
 	let isHolding = false;
-
 	$: innerWidth = 0;
 	$: isMobile = innerWidth < 640;
 
@@ -103,7 +103,11 @@
 
 <svelte:window bind:innerWidth />
 
-<div class="bg-player flex w-full rounded-3xl flex-grow h-6" class:h-full={!$appState.isMenuOpen}>
+<div
+	class="bg-player flex w-full rounded-3xl flex-grow h-6"
+	class:h-full={!$appState.isMenuOpen}
+	class:bg-player-light={$players[id].highlighted}
+>
 	{#if !$appState.isMenuOpen}
 		<div class="flex flex-col w-full relative">
 			<div class="h-full flex flex-col" class:flex-col-reverse={orientation === 'left'}>
@@ -139,8 +143,17 @@
 					<button
 						on:click={() => openPlayerModal(id + 1)}
 						class="bg-[#dfeaf2]/80 py-2 px-3 rounded-lg mt-1 text-lg pointer-events-auto whitespace-nowrap vert"
-						class:rotate-180={orientation === 'left'}>{$players[id].playerName}</button
+						class:rotate-180={orientation === 'left'}
 					>
+						<div class="flex" >
+							{$players[id].playerName}
+							{#if $players[id].isFirst}
+								<div class="flex justify-center items-center mt-2 rotate-90">
+                                    <FirstPlace />
+                                </div>
+							{/if}
+						</div>
+					</button>
 				</div>
 				<div
 					class="w-1/3 flex justify-center items-center vert"
