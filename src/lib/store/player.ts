@@ -167,23 +167,28 @@ const spinToSelectFirstPlayer = () => {
 
 	isSpinning = true;
 	let currentIndex = 0;
-	let spinCount = Math.floor(Math.random() * 10) + totalPlayers * 3; // Randomly decide number of spins
+	let spinCount = Math.floor(Math.random() * 10) + totalPlayers * 4;
+	let intervalTime = 100;
+	const finalPauseTime = 500;
 
-	const spinInterval = setInterval(
-		() => {
-			players.update((currentPlayers) => {
-				return currentPlayers.map((player, index) => {
-					return {
-						...player,
-						highlighted: index === currentIndex % totalPlayers
-					};
-				});
+	const spin = () => {
+		players.update((currentPlayers) => {
+			return currentPlayers.map((player, index) => {
+				return {
+					...player,
+					highlighted: index === currentIndex % totalPlayers
+				};
 			});
+		});
 
-			currentIndex++;
+		currentIndex++;
+		spinCount--;
 
-			if (spinCount <= 0) {
-				clearInterval(spinInterval);
+		if (spinCount > 0) {
+			intervalTime += 10;
+			setTimeout(spin, intervalTime);
+		} else {
+			setTimeout(() => {
 				isSpinning = false;
 				players.update((currentPlayers) => {
 					return currentPlayers.map((player, index) => {
@@ -194,9 +199,9 @@ const spinToSelectFirstPlayer = () => {
 						};
 					});
 				});
-			}
-			spinCount--;
-		},
-		Math.max(50, 200 - spinCount * 10)
-	);
+			}, finalPauseTime);
+		}
+	};
+
+	spin();
 };
