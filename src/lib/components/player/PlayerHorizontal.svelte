@@ -15,16 +15,17 @@
 	let isHolding = false;
 	$: innerWidth = 0;
 	$: isMobile = innerWidth < 640;
+	$: index = id - 1;
 
 	const handleMouseDown = (type: App.Player.LifeMoveType) => {
 		if (!isMobile) {
 			isHolding = true;
 
 			timeout = setTimeout(() => {
-				manageLifeTotal(type, id + 1, 10);
+				manageLifeTotal(type, id, 10);
 				if (isHolding) {
 					interval = setInterval(() => {
-						manageLifeTotal(type, id + 1, 10);
+						manageLifeTotal(type, id, 10);
 					}, 1000);
 				}
 			}, 1000);
@@ -37,7 +38,7 @@
 				clearInterval(interval);
 				interval = 0;
 			} else {
-				manageLifeTotal(type, id + 1);
+				manageLifeTotal(type, id);
 			}
 			clearTimeout(timeout);
 			timeout = 0;
@@ -49,10 +50,10 @@
 		isHolding = true;
 
 		timeout = setTimeout(() => {
-			manageLifeTotal(type, id + 1, 10);
+			manageLifeTotal(type, id, 10);
 			if (isHolding) {
 				interval = setInterval(() => {
-					manageLifeTotal(type, id + 1, 10);
+					manageLifeTotal(type, id, 10);
 				}, 1000);
 			}
 		}, 1000);
@@ -63,13 +64,12 @@
 			clearInterval(interval);
 			interval = 0;
 		} else {
-			manageLifeTotal(type, id + 1);
+			manageLifeTotal(type, id);
 		}
 		clearTimeout(timeout);
 		timeout = 0;
 		isHolding = false;
 	};
-
 </script>
 
 <svelte:window bind:innerWidth />
@@ -77,7 +77,7 @@
 <div
 	class="bg-player flex w-full rounded-3xl flex-grow h-6"
 	class:h-full={!$appState.isMenuOpen}
-	class:bg-player-light={$players[id].highlighted}
+	class:bg-player-light={$players[index].highlighted}
 >
 	{#if !$appState.isMenuOpen}
 		<div class="flex flex-col w-full relative">
@@ -112,16 +112,16 @@
 			>
 				<div class="grow w-1/3 text-center flex justify-center items-center">
 					<button
-						on:click={() => openPlayerModal(id + 1)}
+						on:click={() => openPlayerModal(id)}
 						class="bg-[#dfeaf2]/80 py-2 px-3 rounded-lg mt-1 text-lg pointer-events-auto whitespace-nowrap vert"
 						class:rotate-180={orientation === 'left'}
 					>
-						<div class="flex" >
-							{$players[id].playerName}
-							{#if $players[id].isFirst}
+						<div class="flex">
+							{$players[index].playerName}
+							{#if $players[index].isFirst}
 								<div class="flex justify-center items-center mt-2 rotate-90">
-                                    <FirstPlace />
-                                </div>
+									<FirstPlace />
+								</div>
 							{/if}
 						</div>
 					</button>
@@ -134,18 +134,18 @@
 						class="h-16 text-center"
 						class:rotate-180={orientation === 'left'}
 						class:h-8={$appSettings.playerCount >= 5}
-						>{$players[id].tempLifeDiff < 0 ? `-${$players[id].tempLifeDiff * -1}` : ''}</span
+						>{$players[index].tempLifeDiff < 0 ? `-${$players[index].tempLifeDiff * -1}` : ''}</span
 					>
 					<span
 						class="text-black text-6xl flex items-center text-center"
 						class:-rotate-180={orientation === 'left'}
-						class:text-5xl={$appSettings.playerCount >= 5}>{$players[id].lifeTotal}</span
+						class:text-5xl={$appSettings.playerCount >= 5}>{$players[index].lifeTotal}</span
 					>
 					<span
 						class="h-16 text-center"
 						class:rotate-180={orientation === 'left'}
 						class:h-8={$appSettings.playerCount >= 5}
-						>{$players[id].tempLifeDiff > 0 ? `+${$players[id].tempLifeDiff}` : ''}</span
+						>{$players[index].tempLifeDiff > 0 ? `+${$players[index].tempLifeDiff}` : ''}</span
 					>
 				</div>
 

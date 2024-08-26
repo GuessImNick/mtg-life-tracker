@@ -15,16 +15,17 @@
 
 	$: innerWidth = 0;
 	$: isMobile = innerWidth < 640;
+	$: index = id - 1;
 
 	const handleMouseDown = (type: App.Player.LifeMoveType) => {
 		if (!isMobile) {
 			isHolding = true;
 
 			timeout = setTimeout(() => {
-				manageLifeTotal(type, id + 1, 10);
+				manageLifeTotal(type, id, 10);
 				if (isHolding) {
 					interval = setInterval(() => {
-						manageLifeTotal(type, id + 1, 10);
+						manageLifeTotal(type, id, 10);
 					}, 1000);
 				}
 			}, 1000);
@@ -37,7 +38,7 @@
 				clearInterval(interval);
 				interval = 0;
 			} else {
-				manageLifeTotal(type, id + 1);
+				manageLifeTotal(type, id);
 			}
 			clearTimeout(timeout);
 			timeout = 0;
@@ -49,10 +50,10 @@
 		isHolding = true;
 
 		timeout = setTimeout(() => {
-			manageLifeTotal(type, id + 1, 10);
+			manageLifeTotal(type, id, 10);
 			if (isHolding) {
 				interval = setInterval(() => {
-					manageLifeTotal(type, id + 1, 10);
+					manageLifeTotal(type, id, 10);
 				}, 1000);
 			}
 		}, 1000);
@@ -63,7 +64,7 @@
 			clearInterval(interval);
 			interval = 0;
 		} else {
-			manageLifeTotal(type, id + 1);
+			manageLifeTotal(type, id);
 		}
 		clearTimeout(timeout);
 		timeout = 0;
@@ -77,7 +78,7 @@
 	class="bg-player flex w-full rounded-3xl flex-grow h-6"
 	class:h-full={!$appState.isMenuOpen}
 	class:rotate-180={orientation === 'down'}
-	class:bg-player-light={$players[id].highlighted}
+	class:bg-player-light={$players[index].highlighted}
 >
 	{#if !$appState.isMenuOpen}
 		<div class="flex w-full relative">
@@ -104,11 +105,11 @@
 			>
 				<div class="grow h-1/3 text-center">
 					<button
-						on:click={() => openPlayerModal(id + 1)}
+						on:click={() => openPlayerModal(id)}
 						class="bg-[#dfeaf2]/80 py-2 px-3 rounded-lg mt-1 text-xl pointer-events-auto"
 						><div class="flex">
-							{$players[id].playerName}
-							{#if $players[id].isFirst}
+							{$players[index].playerName}
+							{#if $players[index].isFirst}
 								<div class="flex justify-center items-center ml-2">
 									<FirstPlace />
 								</div>
@@ -118,11 +119,11 @@
 				</div>
 				<div class="h-1/3 flex justify-center items-center flex-row">
 					<span class="w-16 text-center"
-						>{$players[id].tempLifeDiff < 0 ? `-${$players[id].tempLifeDiff * -1}` : ''}</span
+						>{$players[index].tempLifeDiff < 0 ? `-${$players[index].tempLifeDiff * -1}` : ''}</span
 					>
-					<span class="text-black text-7xl"> {$players[id].lifeTotal}</span>
+					<span class="text-black text-7xl"> {$players[index].lifeTotal}</span>
 					<span class="w-16 text-center"
-						>{$players[id].tempLifeDiff > 0 ? `+${$players[id].tempLifeDiff}` : ''}</span
+						>{$players[index].tempLifeDiff > 0 ? `+${$players[index].tempLifeDiff}` : ''}</span
 					>
 				</div>
 				<div class="grow h-1/3"></div>

@@ -11,10 +11,10 @@
 		class:h-[60%]={!$appState.isMenuOpen}
 	>
 		<div class="w-1/2">
-			<PlayerHorizontal orientation="right" id={1} />
+			<PlayerHorizontal orientation="right" id={2} />
 		</div>
 		<div class="w-1/2">
-			<PlayerHorizontal orientation="left" id={2} />
+			<PlayerHorizontal orientation="left" id={3} />
 		</div>
 	</div>
 	<div class="flex-grow">
@@ -25,6 +25,6 @@
 		class:h-[40%]={!$appState.isMenuOpen}
 		class:pt-2={$appState.isMenuOpen}
 	>
-		<PlayerVertical orientation={'up'} id={0} />
+		<PlayerVertical orientation={'up'} id={1} />
 	</div>
 </div>

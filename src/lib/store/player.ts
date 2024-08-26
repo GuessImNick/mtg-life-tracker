@@ -98,6 +98,8 @@ export const manageLifeTotal = (
 	amount: number = 1
 ) => {
 	removeFirstPlace();
+	let withinBounds = false; // Flag to determine if setTempLifeDiff should be called
+
 	players.update((currentPlayers) => {
 		return currentPlayers.map((player) => {
 			if (player.id === playerId) {
@@ -105,19 +107,14 @@ export const manageLifeTotal = (
 
 				if (type === 'add') {
 					newLifeTotal += amount;
-					if (newLifeTotal < 999) {
-						setTempLifeDiff(playerId, type, amount);
-					}
+					withinBounds = newLifeTotal <= 999; // Check if within bounds
 				} else if (type === 'subtract') {
 					newLifeTotal -= amount;
-					if (newLifeTotal > 0) {
-						setTempLifeDiff(playerId, type, amount);
-					}
+					withinBounds = newLifeTotal >= 0; // Check if within bounds
 				}
 
 				// Ensure the life total is within acceptable bounds
-				if (newLifeTotal < 0) newLifeTotal = 0;
-				if (newLifeTotal > 999) newLifeTotal = 999;
+				newLifeTotal = Math.max(0, Math.min(999, newLifeTotal));
 
 				return {
 					...player,
@@ -127,6 +124,11 @@ export const manageLifeTotal = (
 			return player;
 		});
 	});
+
+	// Only run this if life total is within bounds
+	if (withinBounds) {
+		setTempLifeDiff(playerId, type, amount);
+	}
 };
 
 export const setPlayerName = (playerId: number, playerName: string) => {
