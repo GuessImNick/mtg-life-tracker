@@ -7,7 +7,7 @@
 <svelte:window bind:innerHeight contextmenu="return false" />
 
 <div
-	class="mx-auto max-w-screen-xl font-sans flex justify-center overflow-hidden"
+	class="mx-auto max-w-[500px] font-sans flex justify-center overflow-hidden"
 	style="height: {innerHeight}px;"
 >
 	<slot />
